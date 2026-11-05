@@ -79,7 +79,7 @@
             100% { transform: translateY(105vh) translateX(15px); opacity: 0.2; }
         }
 
-        /* Smooth Cinematic Zoom & Fade Opening Effect */
+        /* Cinematic Zoom & Fade Opening Effect */
         .intro-overlay {
             transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
         }
@@ -91,7 +91,7 @@
         }
 
         .glass-card {
-            background: rgba(15, 34, 63, 0.82);
+            background: rgba(15, 34, 63, 0.85);
             backdrop-filter: blur(14px);
             border: 1px solid rgba(212, 175, 55, 0.35);
         }
@@ -107,22 +107,19 @@
         <button id="musicToggle" class="w-12 h-12 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 flex items-center justify-center shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow">
             <i class="fas fa-music text-lg" id="musicIcon"></i>
         </button>
-        <!-- ABBA Happy New Year Audio Source -->
-                <!-- Audio Source -->
+        <!-- Stable Audio Source -->
         <audio id="bgMusic" loop preload="auto">
-            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=wedding-valse-112330.mp3" type="audio/mpeg">
+            <source src="https://cdn.pixabay.com/download/audio/2022/11/04/audio_3d16ca52a7.mp3?filename=christmas-magic-123475.mp3" type="audio/mpeg">
         </audio>
+    </div>
 
-
-    <!-- INTRO SCREEN (CINEMATIC ZOOM OPENING) -->
+    <!-- INTRO SCREEN -->
     <div id="introScreen" class="intro-overlay fixed inset-0 z-40 flex items-center justify-center p-4 bg-brandblue-950">
         <div class="max-w-xl w-full mx-auto text-center p-8 glass-card rounded-3xl shadow-2xl border-2 border-gold-500/60 relative overflow-hidden">
             
-            <!-- Glow background decor -->
             <div class="absolute -top-24 -left-24 w-48 h-48 bg-gold-500/20 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-gold-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
-            <!-- Brand Logo Header in Intro -->
             <div class="inline-flex items-center gap-3 bg-white/95 px-5 py-2 rounded-xl shadow-lg mb-6 border border-gold-400/50">
                 <div class="w-8 h-8 rounded-full bg-[#E5B842] flex items-center justify-center font-bold text-white text-base tracking-tighter">SF</div>
                 <span class="font-sans font-bold text-lg text-[#1b365d] tracking-tight">Azerbaijan</span>
@@ -134,7 +131,6 @@
                 SF Azerbaijan komandası olaraq sizi unudulmaz Yeni İl Qala Gecəmizdə görməkdən məmnun olarıq.
             </p>
 
-            <!-- Interactive Seal Button -->
             <div id="sealBtn" class="cursor-pointer inline-flex flex-col items-center group">
                 <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-gold-300 via-gold-500 to-gold-700 flex items-center justify-center shadow-2xl gold-glow group-hover:scale-110 transition-transform relative border-2 border-gold-100 mx-auto">
                     <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-brandblue-900/40 flex items-center justify-center bg-gold-400/20">
@@ -150,9 +146,8 @@
     </div>
 
     <!-- MAIN CONTENT -->
-    <div id="mainContent" class="opacity-0 pointer-events-none transition-opacity duration-1000 w-full flex flex-col items-center pb-16 z-20">
+    <div id="mainContent" class="w-full flex flex-col items-center pb-16 z-20">
         
-        <!-- Header with Brand Logo -->
         <header class="text-center my-12 px-4 max-w-3xl flex flex-col items-center">
             <div class="bg-white/95 px-6 py-3 rounded-xl shadow-2xl mb-6 border border-gold-400/50 flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-[#E5B842] flex items-center justify-center font-bold text-white text-lg tracking-tighter shadow">SF</div>
@@ -191,7 +186,7 @@
             </div>
         </section>
 
-        <!-- Event Details & Location Cards -->
+        <!-- Event Details -->
         <section class="w-full max-w-4xl px-4 grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             <div class="glass-card p-6 rounded-2xl shadow-xl border border-gold-500/30 flex items-start gap-4">
                 <div class="w-14 h-14 rounded-full bg-gold-500/20 border border-gold-400 flex items-center justify-center text-gold-300 text-2xl shrink-0 mt-1">
@@ -262,7 +257,7 @@
             </div>
         </section>
 
-        <!-- RSVP & Dress Code Section -->
+        <!-- RSVP & Dress Code -->
         <section class="w-full max-w-4xl px-4 grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             <div class="glass-card p-6 rounded-2xl shadow-xl border border-gold-500/30 text-center flex flex-col justify-between">
                 <div>
@@ -323,7 +318,6 @@
             }
 
             const introScreen = document.getElementById('introScreen');
-            const mainContent = document.getElementById('mainContent');
             const sealBtn = document.getElementById('sealBtn');
             const rsvpBtn = document.getElementById('rsvpBtn');
             const rsvpStatus = document.getElementById('rsvpStatus');
@@ -354,9 +348,6 @@
                     setTimeout(() => {
                         if (introScreen) {
                             introScreen.style.display = 'none';
-                            if (mainContent) {
-                                mainContent.classList.remove('opacity-0', 'pointer-events-none');
-                            }
                         }
                     }, 1000);
                 });
