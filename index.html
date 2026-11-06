@@ -107,11 +107,11 @@
         <button id="musicToggle" class="w-12 h-12 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 flex items-center justify-center shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow">
             <i class="fas fa-music text-lg" id="musicIcon"></i>
         </button>
-        <!-- Stable Audio Source -->
-    
-    <audio id="bgMusic" loop preload="auto">
-    <source src="https://raw.githubusercontent.com/akramcs307/devetname/main/happy-new-year.mp3" type="audio/mpeg">
-    </audio>
+        <!-- GitHub-dakı öz yüklədiyiniz ABBA mahnısı linki -->
+        <audio id="bgMusic" loop preload="auto">
+            <source src="https://raw.githubusercontent.com/akramcs307/devetname/main/happy-new-year.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
     <!-- INTRO SCREEN -->
     <div id="introScreen" class="intro-overlay fixed inset-0 z-40 flex items-center justify-center p-4 bg-brandblue-950">
@@ -186,7 +186,7 @@
             </div>
         </section>
 
-        <!-- Event Details -->
+        <!-- Event Details & Location -->
         <section class="w-full max-w-4xl px-4 grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             <div class="glass-card p-6 rounded-2xl shadow-xl border border-gold-500/30 flex items-start gap-4">
                 <div class="w-14 h-14 rounded-full bg-gold-500/20 border border-gold-400 flex items-center justify-center text-gold-300 text-2xl shrink-0 mt-1">
@@ -393,7 +393,7 @@
                         }
                         isPlaying = true;
                     }).catch(e => {
-                        console.log("Audio blocked.");
+                        console.log("Audio blocked by browser.");
                     });
                 }
             }
