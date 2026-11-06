@@ -60,7 +60,7 @@
         }
 
         .gold-glow {
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.45);
         }
 
         /* Snowflake Animation */
@@ -79,13 +79,57 @@
             100% { transform: translateY(105vh) translateX(15px); opacity: 0.2; }
         }
 
-        /* Cinematic Zoom & Fade Opening Effect */
-        .intro-overlay {
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
+        /* 3D Gate & Ribbon Opening Animation */
+        .gate-wrapper {
+            perspective: 1200px;
         }
 
-        .intro-overlay.open {
-            transform: scale(1.3);
+        .door-left, .door-right {
+            transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+            transform-style: preserve-3d;
+        }
+
+        .door-left {
+            transform-origin: left center;
+            background: linear-gradient(135deg, #0f223f 0%, #081324 100%);
+            border-right: 2px solid #D4AF37;
+        }
+
+        .door-right {
+            transform-origin: right center;
+            background: linear-gradient(225deg, #0f223f 0%, #081324 100%);
+            border-left: 2px solid #D4AF37;
+        }
+
+        .gate-open .door-left {
+            transform: rotateY(-120deg);
+        }
+
+        .gate-open .door-right {
+            transform: rotateY(120deg);
+        }
+
+        /* Ribbon ties animation */
+        .ribbon-left, .ribbon-right {
+            transition: transform 1.1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+        }
+
+        .gate-open .ribbon-left {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        .gate-open .ribbon-right {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        .center-seal {
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+        }
+
+        .gate-open .center-seal {
+            transform: translate(-50%, -50%) scale(0.1);
             opacity: 0;
             pointer-events: none;
         }
@@ -107,38 +151,55 @@
         <button id="musicToggle" class="w-12 h-12 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 flex items-center justify-center shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow">
             <i class="fas fa-music text-lg" id="musicIcon"></i>
         </button>
-        <!-- GitHub-dakı öz yüklədiyiniz ABBA mahnısı linki -->
+        <!-- GitHub Audio Source (Dəqiq fayl adı ilə) -->
         <audio id="bgMusic" loop preload="auto">
-            <source src="https://raw.githubusercontent.com/akramcs307/devetname/main/happy-new-year.mp3" type="audio/mpeg">
+            <source src="https://raw.githubusercontent.com/akramcs307/devetname/main/Happy%20newyear.mp3" type="audio/mpeg">
         </audio>
     </div>
 
-    <!-- INTRO SCREEN -->
-    <div id="introScreen" class="intro-overlay fixed inset-0 z-40 flex items-center justify-center p-4 bg-brandblue-950">
-        <div class="max-w-xl w-full mx-auto text-center p-8 glass-card rounded-3xl shadow-2xl border-2 border-gold-500/60 relative overflow-hidden">
+    <!-- INTRO OVERLAY (LUXURY RIBBON GATEFOLD SCREEN) -->
+    <div id="introScreen" class="gate-wrapper fixed inset-0 z-40 flex items-center justify-center bg-brandblue-950 overflow-hidden">
+        
+        <div id="gateContainer" class="relative w-full h-full flex items-center justify-center">
             
-            <div class="absolute -top-24 -left-24 w-48 h-48 bg-gold-500/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-gold-500/20 rounded-full blur-3xl pointer-events-none"></div>
-
-            <div class="inline-flex items-center gap-3 bg-white/95 px-5 py-2 rounded-xl shadow-lg mb-6 border border-gold-400/50">
-                <div class="w-8 h-8 rounded-full bg-[#E5B842] flex items-center justify-center font-bold text-white text-base tracking-tighter">SF</div>
-                <span class="font-sans font-bold text-lg text-[#1b365d] tracking-tight">Azerbaijan</span>
+            <!-- Left Door -->
+            <div class="door-left absolute top-0 left-0 w-1/2 h-full z-20 flex flex-col items-end justify-center pr-6 shadow-2xl">
+                <div class="border border-gold-400/40 p-6 text-center rounded-xl bg-brandblue-900/40 backdrop-blur-sm mr-4">
+                    <span class="block font-cinzel text-xs text-gold-300 tracking-[0.3em] font-bold">SF AZERBAIJAN</span>
+                    <span class="block font-script text-3xl gold-text mt-1">Yeni İl Qala Gecəsi</span>
+                </div>
+                <!-- Left Ribbon Side -->
+                <div class="ribbon-left absolute top-1/2 right-0 w-full h-16 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 shadow-xl border-y-2 border-gold-100 -translate-y-1/2 z-30"></div>
             </div>
 
-            <span class="block text-gold-300 font-cinzel tracking-[0.3em] text-xs uppercase font-semibold mb-2">KORPORATİV QALA GECƏSİ</span>
-            <h2 class="font-script text-5xl md:text-6xl gold-text mb-4">Yeni İliniz Mübarək!</h2>
-            <p class="text-gray-200 text-xs md:text-sm mb-8 leading-relaxed font-light">
-                SF Azerbaijan komandası olaraq sizi unudulmaz Yeni İl Qala Gecəmizdə görməkdən məmnun olarıq.
-            </p>
+            <!-- Right Door -->
+            <div class="door-right absolute top-0 right-0 w-1/2 h-full z-20 flex flex-col items-start justify-center pl-6 shadow-2xl">
+                <div class="border border-gold-400/40 p-6 text-center rounded-xl bg-brandblue-900/40 backdrop-blur-sm ml-4">
+                    <span class="block font-cinzel text-xs text-gold-300 tracking-[0.3em] font-bold">KORPORATİV</span>
+                    <span class="block font-script text-3xl gold-text mt-1">2027 Tədbiri</span>
+                </div>
+                <!-- Right Ribbon Side -->
+                <div class="ribbon-right absolute top-1/2 left-0 w-full h-16 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 shadow-xl border-y-2 border-gold-100 -translate-y-1/2 z-30"></div>
+            </div>
 
-            <div id="sealBtn" class="cursor-pointer inline-flex flex-col items-center group">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-gold-300 via-gold-500 to-gold-700 flex items-center justify-center shadow-2xl gold-glow group-hover:scale-110 transition-transform relative border-2 border-gold-100 mx-auto">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-brandblue-900/40 flex items-center justify-center bg-gold-400/20">
-                        <i class="fas fa-snowflake text-brandblue-900 text-2xl md:text-3xl drop-shadow animate-spin" style="animation-duration: 10s;"></i>
+            <!-- Center Ribbon Bow & Seal -->
+            <div id="sealBtn" class="center-seal absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 cursor-pointer flex flex-col items-center group">
+                <!-- Bow Tie Ribbon visual -->
+                <div class="relative flex items-center justify-center">
+                    <div class="w-16 h-16 bg-gold-500 rotate-45 rounded-sm shadow-xl absolute -left-6 border border-gold-100"></div>
+                    <div class="w-16 h-16 bg-gold-500 rotate-45 rounded-sm shadow-xl absolute -right-6 border border-gold-100"></div>
+                    
+                    <div class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-gold-100 via-gold-400 to-gold-600 flex items-center justify-center shadow-2xl gold-glow group-hover:scale-110 transition-transform border-4 border-white relative z-10">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-brandblue-950/40 flex flex-col items-center justify-center bg-brandblue-950 text-center p-1">
+                            <span class="font-bold text-xs text-gold-300 tracking-tighter">SF</span>
+                            <i class="fas fa-snowflake text-gold-400 text-lg my-0.5 animate-spin" style="animation-duration: 10s;"></i>
+                            <span class="text-[9px] text-gray-300 tracking-widest uppercase font-semibold">Açın</span>
+                        </div>
                     </div>
                 </div>
-                <span class="mt-4 text-gold-300 text-xs font-semibold tracking-widest flex items-center gap-1.5 animate-pulse bg-brandblue-950/90 px-4 py-1.5 rounded-full border border-gold-500/40 uppercase">
-                    <i class="fas fa-hand-pointer"></i> Dəvətnaməni Aç
+
+                <span class="mt-6 text-gold-300 text-xs font-semibold tracking-widest flex items-center gap-2 animate-pulse bg-brandblue-950/90 px-4 py-1.5 rounded-full border border-gold-500/40 uppercase shadow-2xl">
+                    <i class="fas fa-hand-pointer"></i> Lenti Açmaq İçün Toxunun
                 </span>
             </div>
 
@@ -146,8 +207,9 @@
     </div>
 
     <!-- MAIN CONTENT -->
-    <div id="mainContent" class="w-full flex flex-col items-center pb-16 z-20">
+    <div id="mainContent" class="opacity-0 pointer-events-none transition-opacity duration-1000 w-full flex flex-col items-center pb-16 z-20">
         
+        <!-- Header with Brand Logo -->
         <header class="text-center my-12 px-4 max-w-3xl flex flex-col items-center">
             <div class="bg-white/95 px-6 py-3 rounded-xl shadow-2xl mb-6 border border-gold-400/50 flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-[#E5B842] flex items-center justify-center font-bold text-white text-lg tracking-tighter shadow">SF</div>
@@ -318,7 +380,9 @@
             }
 
             const introScreen = document.getElementById('introScreen');
+            const gateContainer = document.getElementById('gateContainer');
             const sealBtn = document.getElementById('sealBtn');
+            const mainContent = document.getElementById('mainContent');
             const rsvpBtn = document.getElementById('rsvpBtn');
             const rsvpStatus = document.getElementById('rsvpStatus');
             const musicToggle = document.getElementById('musicToggle');
@@ -328,7 +392,7 @@
 
             if (sealBtn) {
                 sealBtn.addEventListener('click', () => {
-                    introScreen.classList.add('open');
+                    gateContainer.classList.add('gate-open');
 
                     if (!isPlaying && bgMusic) {
                         toggleMusic();
@@ -337,19 +401,26 @@
                     setTimeout(() => {
                         if (typeof confetti === 'function') {
                             confetti({
-                                particleCount: 120,
+                                particleCount: 140,
                                 spread: 100,
                                 origin: { y: 0.5 },
                                 colors: ['#D4AF37', '#FFF5D1', '#1b365d']
                             });
                         }
-                    }, 400);
+                    }, 500);
 
                     setTimeout(() => {
                         if (introScreen) {
-                            introScreen.style.display = 'none';
+                            introScreen.style.opacity = '0';
+                            introScreen.style.transition = 'opacity 0.8s ease';
+                            setTimeout(() => {
+                                introScreen.style.display = 'none';
+                                if (mainContent) {
+                                    mainContent.classList.remove('opacity-0', 'pointer-events-none');
+                                }
+                            }, 800);
                         }
-                    }, 1000);
+                    }, 1100);
                 });
             }
 
