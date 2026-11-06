@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SF Azerbaijan - Yeni İl Korporativ Dəvətnaməsi</title>
+    <title>SF Azerbaijan - Yeni İl Korporativ Qala Gecəsi</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -60,7 +60,7 @@
         }
 
         .gold-glow {
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.45);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
         }
 
         /* Snowflake Animation */
@@ -79,65 +79,77 @@
             100% { transform: translateY(105vh) translateX(15px); opacity: 0.2; }
         }
 
-        /* 3D Gate & Ribbon Opening Animation */
-        .gate-wrapper {
-            perspective: 1200px;
+        /* Luxury Curtain Opening Animation */
+        .curtain-container {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            display: flex;
+            overflow: hidden;
+            background: #081324;
         }
 
-        .door-left, .door-right {
-            transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
-            transform-style: preserve-3d;
+        .curtain-left, .curtain-right {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 20;
         }
 
-        .door-left {
-            transform-origin: left center;
-            background: linear-gradient(135deg, #0f223f 0%, #081324 100%);
-            border-right: 2px solid #D4AF37;
+        /* Brand Velvet Curtain Texture Effect */
+        .curtain-left {
+            background: linear-gradient(90deg, #081324 0%, #1b365d 40%, #0f223f 70%, #081324 100%);
+            border-right: 3px solid #D4AF37;
+            box-shadow: 15px 0 30px rgba(0,0,0,0.8);
         }
 
-        .door-right {
-            transform-origin: right center;
-            background: linear-gradient(225deg, #0f223f 0%, #081324 100%);
-            border-left: 2px solid #D4AF37;
+        .curtain-right {
+            background: linear-gradient(90deg, #081324 0%, #0f223f 30%, #1b365d 60%, #081324 100%);
+            border-left: 3px solid #D4AF37;
+            box-shadow: -15px 0 30px rgba(0,0,0,0.8);
         }
 
-        .gate-open .door-left {
-            transform: rotateY(-120deg);
-        }
-
-        .gate-open .door-right {
-            transform: rotateY(120deg);
-        }
-
-        /* Ribbon ties animation */
-        .ribbon-left, .ribbon-right {
-            transition: transform 1.1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-        }
-
-        .gate-open .ribbon-left {
+        .curtain-open .curtain-left {
             transform: translateX(-100%);
-            opacity: 0;
         }
 
-        .gate-open .ribbon-right {
+        .curtain-open .curtain-right {
             transform: translateX(100%);
-            opacity: 0;
         }
 
-        .center-seal {
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+        /* Curtain Seal Button */
+        .curtain-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 30;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
         }
 
-        .gate-open .center-seal {
-            transform: translate(-50%, -50%) scale(0.1);
+        .curtain-open .curtain-seal {
+            transform: translate(-50%, -50%) scale(0) rotate(180deg);
             opacity: 0;
             pointer-events: none;
         }
 
+        /* Content Zoom in Effect on Curtain Open */
+        .content-card {
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease;
+            transform: scale(0.85);
+            opacity: 0;
+        }
+
+        .content-active .content-card {
+            transform: scale(1);
+            opacity: 1;
+        }
+
         .glass-card {
             background: rgba(15, 34, 63, 0.85);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(212, 175, 55, 0.35);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
         }
     </style>
 </head>
@@ -146,74 +158,63 @@
     <!-- Snowflakes Layer -->
     <div id="snow-container" class="absolute inset-0 overflow-hidden pointer-events-none z-10"></div>
 
-    <!-- Music Toggle Fixed Button -->
+    <!-- Music Toggle Button -->
     <div class="fixed top-5 right-5 z-50">
-        <button id="musicToggle" class="w-12 h-12 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 flex items-center justify-center shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow">
+        <button id="musicToggle" class="w-12 h-12 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 flex items-center justify-center shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow cursor-pointer">
             <i class="fas fa-music text-lg" id="musicIcon"></i>
         </button>
-        <!-- GitHub Audio Source (Dəqiq fayl adı ilə) -->
         <audio id="bgMusic" loop preload="auto">
             <source src="https://raw.githubusercontent.com/akramcs307/devetname/main/Happy%20newyear.mp3" type="audio/mpeg">
         </audio>
     </div>
 
-    <!-- INTRO OVERLAY (LUXURY RIBBON GATEFOLD SCREEN) -->
-    <div id="introScreen" class="gate-wrapper fixed inset-0 z-40 flex items-center justify-center bg-brandblue-950 overflow-hidden">
+    <!-- CURTAIN OVERLAY -->
+    <div id="curtainOverlay" class="curtain-container">
         
-        <div id="gateContainer" class="relative w-full h-full flex items-center justify-center">
-            
-            <!-- Left Door -->
-            <div class="door-left absolute top-0 left-0 w-1/2 h-full z-20 flex flex-col items-end justify-center pr-6 shadow-2xl">
-                <div class="border border-gold-400/40 p-6 text-center rounded-xl bg-brandblue-900/40 backdrop-blur-sm mr-4">
-                    <span class="block font-cinzel text-xs text-gold-300 tracking-[0.3em] font-bold">SF AZERBAIJAN</span>
-                    <span class="block font-script text-3xl gold-text mt-1">Yeni İl Qala Gecəsi</span>
-                </div>
-                <!-- Left Ribbon Side -->
-                <div class="ribbon-left absolute top-1/2 right-0 w-full h-16 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 shadow-xl border-y-2 border-gold-100 -translate-y-1/2 z-30"></div>
+        <!-- Left Curtain -->
+        <div class="curtain-left flex items-center justify-end pr-8">
+            <div class="border-y border-gold-400/40 py-8 px-4 text-center">
+                <span class="block font-cinzel text-xs text-gold-300 tracking-[0.3em] font-bold">SF AZERBAIJAN</span>
+                <span class="block font-script text-3xl gold-text mt-1">Yeni İl Qala Gecəsi</span>
             </div>
-
-            <!-- Right Door -->
-            <div class="door-right absolute top-0 right-0 w-1/2 h-full z-20 flex flex-col items-start justify-center pl-6 shadow-2xl">
-                <div class="border border-gold-400/40 p-6 text-center rounded-xl bg-brandblue-900/40 backdrop-blur-sm ml-4">
-                    <span class="block font-cinzel text-xs text-gold-300 tracking-[0.3em] font-bold">KORPORATİV</span>
-                    <span class="block font-script text-3xl gold-text mt-1">2027 Tədbiri</span>
-                </div>
-                <!-- Right Ribbon Side -->
-                <div class="ribbon-right absolute top-1/2 left-0 w-full h-16 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 shadow-xl border-y-2 border-gold-100 -translate-y-1/2 z-30"></div>
-            </div>
-
-            <!-- Center Ribbon Bow & Seal -->
-            <div id="sealBtn" class="center-seal absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 cursor-pointer flex flex-col items-center group">
-                <!-- Bow Tie Ribbon visual -->
-                <div class="relative flex items-center justify-center">
-                    <div class="w-16 h-16 bg-gold-500 rotate-45 rounded-sm shadow-xl absolute -left-6 border border-gold-100"></div>
-                    <div class="w-16 h-16 bg-gold-500 rotate-45 rounded-sm shadow-xl absolute -right-6 border border-gold-100"></div>
-                    
-                    <div class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-gold-100 via-gold-400 to-gold-600 flex items-center justify-center shadow-2xl gold-glow group-hover:scale-110 transition-transform border-4 border-white relative z-10">
-                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-brandblue-950/40 flex flex-col items-center justify-center bg-brandblue-950 text-center p-1">
-                            <span class="font-bold text-xs text-gold-300 tracking-tighter">SF</span>
-                            <i class="fas fa-snowflake text-gold-400 text-lg my-0.5 animate-spin" style="animation-duration: 10s;"></i>
-                            <span class="text-[9px] text-gray-300 tracking-widest uppercase font-semibold">Açın</span>
-                        </div>
-                    </div>
-                </div>
-
-                <span class="mt-6 text-gold-300 text-xs font-semibold tracking-widest flex items-center gap-2 animate-pulse bg-brandblue-950/90 px-4 py-1.5 rounded-full border border-gold-500/40 uppercase shadow-2xl">
-                    <i class="fas fa-hand-pointer"></i> Lenti Açmaq İçün Toxunun
-                </span>
-            </div>
-
         </div>
+
+        <!-- Right Curtain -->
+        <div class="curtain-right flex items-center justify-start pl-8">
+            <div class="border-y border-gold-400/40 py-8 px-4 text-center">
+                <span class="block font-cinzel text-xs text-gold-300 tracking-[0.3em] font-bold">KORPORATİV</span>
+                <span class="block font-script text-3xl gold-text mt-1">2027 Tədbiri</span>
+            </div>
+        </div>
+
+        <!-- Center Interactive Golden Seal -->
+        <div id="sealBtn" class="curtain-seal cursor-pointer flex flex-col items-center group">
+            <div class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-gold-100 via-gold-400 to-gold-600 flex items-center justify-center shadow-2xl gold-glow group-hover:scale-110 transition-transform border-4 border-white relative">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-brandblue-950/40 flex flex-col items-center justify-center bg-brandblue-950 text-center p-1">
+                    <span class="font-bold text-xs text-gold-300 tracking-tighter">SF</span>
+                    <i class="fas fa-snowflake text-gold-400 text-lg my-0.5 animate-spin" style="animation-duration: 10s;"></i>
+                    <span class="text-[9px] text-gray-300 tracking-widest uppercase font-semibold">Açın</span>
+                </div>
+            </div>
+            <span class="mt-6 text-gold-300 text-xs font-semibold tracking-widest flex items-center gap-2 animate-pulse bg-brandblue-950/90 px-5 py-2 rounded-full border border-gold-500/50 uppercase shadow-2xl">
+                <i class="fas fa-hand-pointer"></i> Pərdəni açmaq üçün toxunun
+            </span>
+        </div>
+
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="mainContent" class="opacity-0 pointer-events-none transition-opacity duration-1000 w-full flex flex-col items-center pb-16 z-20">
+    <!-- MAIN CONTENT (ZOOMS IN ON OPENING) -->
+    <div id="mainContent" class="content-card w-full flex flex-col items-center pb-16 z-20">
         
         <!-- Header with Brand Logo -->
         <header class="text-center my-12 px-4 max-w-3xl flex flex-col items-center">
             <div class="bg-white/95 px-6 py-3 rounded-xl shadow-2xl mb-6 border border-gold-400/50 flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-[#E5B842] flex items-center justify-center font-bold text-white text-lg tracking-tighter shadow">SF</div>
                 <span class="font-sans font-bold text-xl md:text-2xl text-[#1b365d] tracking-tight">Azerbaijan</span>
+            </div>
+
+            <div class="mb-4 inline-block bg-gold-500/10 border border-gold-500/30 px-4 py-1.5 rounded-full text-gold-300 text-xs font-cinzel tracking-widest">
+                <i class="fas fa-star mr-1.5 text-gold-400"></i> XÜSUSİ DƏVƏTNAMƏ
             </div>
 
             <span class="text-gold-300 font-cinzel tracking-[0.4em] text-xs md:text-sm uppercase font-semibold">KORPORATİV YENİ İL QALA GECƏSİ</span>
@@ -365,7 +366,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Snowflakes generator
             const snowContainer = document.getElementById('snow-container');
-            for (let i = 0; i < 45; i++) {
+            for (let i = 0; i < 50; i++) {
                 const flake = document.createElement('div');
                 flake.classList.add('snowflake');
                 const size = Math.random() * 5 + 3 + 'px';
@@ -379,8 +380,7 @@
                 snowContainer.appendChild(flake);
             }
 
-            const introScreen = document.getElementById('introScreen');
-            const gateContainer = document.getElementById('gateContainer');
+            const curtainOverlay = document.getElementById('curtainOverlay');
             const sealBtn = document.getElementById('sealBtn');
             const mainContent = document.getElementById('mainContent');
             const rsvpBtn = document.getElementById('rsvpBtn');
@@ -392,7 +392,8 @@
 
             if (sealBtn) {
                 sealBtn.addEventListener('click', () => {
-                    gateContainer.classList.add('gate-open');
+                    curtainOverlay.classList.add('curtain-open');
+                    document.body.classList.add('content-active');
 
                     if (!isPlaying && bgMusic) {
                         toggleMusic();
@@ -401,26 +402,19 @@
                     setTimeout(() => {
                         if (typeof confetti === 'function') {
                             confetti({
-                                particleCount: 140,
-                                spread: 100,
+                                particleCount: 160,
+                                spread: 110,
                                 origin: { y: 0.5 },
                                 colors: ['#D4AF37', '#FFF5D1', '#1b365d']
                             });
                         }
-                    }, 500);
+                    }, 600);
 
                     setTimeout(() => {
-                        if (introScreen) {
-                            introScreen.style.opacity = '0';
-                            introScreen.style.transition = 'opacity 0.8s ease';
-                            setTimeout(() => {
-                                introScreen.style.display = 'none';
-                                if (mainContent) {
-                                    mainContent.classList.remove('opacity-0', 'pointer-events-none');
-                                }
-                            }, 800);
+                        if (curtainOverlay) {
+                            curtainOverlay.style.display = 'none';
                         }
-                    }, 1100);
+                    }, 1800);
                 });
             }
 
