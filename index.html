@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Xarici Canlı CSS Faylı -->
+    <link rel="stylesheet" href="style.css">
 
     <script>
         tailwind.config = {
@@ -42,217 +44,6 @@
             }
         }
     </script>
-
-    <style>
-        body {
-            background: radial-gradient(circle at 50% 20%, #1b365d 0%, #0f223f 60%, #081324 100%);
-            color: #FFF5D1;
-            font-family: 'Montserrat', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        html.curtain-lock, body.curtain-lock {
-            overflow: hidden !important;
-            height: 100% !important;
-        }
-
-        .gold-text {
-            background: linear-gradient(135deg, #FFF5D1 0%, #F7D070 40%, #D4AF37 70%, #AA8C2C 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gold-glow {
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
-        }
-
-        /* Snowflake Animation */
-        .snowflake {
-            position: absolute;
-            background: #ffffff;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.8;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-10px) translateX(0); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(105vh) translateX(15px); opacity: 0.2; }
-        }
-
-        /* ===== TEATR PƏRDƏSİ VƏ İŞIQLI MƏRKƏZ ===== */
-        .curtain-container {
-            --v0: #07111f; --v1: #12294a; --v2: #24487b; --v3: #3a68b0;
-            position: fixed;
-            inset: 0;
-            z-index: 40;
-            overflow: hidden;
-            background: transparent;
-            cursor: pointer;
-            transition: opacity 0.8s ease;
-        }
-
-        .curtain-container.curtain-open { pointer-events: none; }
-        .curtain-container.curtain-fade { opacity: 0; }
-
-        .velvet {
-            background:
-                linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.38) 100%),
-                repeating-linear-gradient(90deg, rgba(0,0,0,0) 0px, rgba(255,255,255,0.07) 9px, rgba(0,0,0,0.35) 24px, rgba(0,0,0,0) 37px),
-                repeating-linear-gradient(90deg, rgba(0,0,0,0.25) 0px, rgba(255,255,255,0.05) 20px, rgba(0,0,0,0.3) 41px, rgba(0,0,0,0) 61px),
-                repeating-linear-gradient(90deg, var(--v0) 0px, var(--v1) 22px, var(--v2) 40px, var(--v3) 48px, var(--v2) 58px, var(--v1) 76px, var(--v0) 97px);
-        }
-
-        .curtain-panel {
-            position: absolute;
-            top: 0; bottom: 0;
-            width: 52%;
-            z-index: 20;
-            will-change: transform, clip-path;
-            backface-visibility: hidden;
-            transition: transform 1.8s cubic-bezier(0.22, 1.25, 0.36, 1), clip-path 1.8s cubic-bezier(0.22, 1.25, 0.36, 1);
-        }
-
-        .curtain-panel::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 58%, rgba(0,0,0,0.42) 68%, transparent 78%);
-            opacity: 0;
-            transition: opacity 0.6s ease 0.4s;
-        }
-        .curtain-open .curtain-panel::before { opacity: 1; }
-
-        .curtain-panel::after {
-            content: "";
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
-            height: 24px;
-            border-top: 3px solid #D4AF37;
-            background: repeating-linear-gradient(90deg, #AA8C2C 0px, #F7D070 2px, #D4AF37 4px, #7E661B 6px, transparent 7px, transparent 8px);
-        }
-
-        .curtain-left {
-            left: 0;
-            transform-origin: left center;
-            box-shadow: inset -50px 0 70px rgba(0,0,0,0.6);
-            clip-path: polygon(0 0, 100% 0, 100% 8%, 100% 16%, 100% 24%, 100% 32%, 100% 40%, 100% 48%, 100% 56%, 100% 62%, 100% 68%, 100% 76%, 100% 84%, 100% 92%, 100% 100%, 0 100%);
-        }
-
-        .curtain-right {
-            right: 0;
-            transform-origin: right center;
-            box-shadow: inset 50px 0 70px rgba(0,0,0,0.6);
-            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 92%, 0 84%, 0 76%, 0 68%, 0 62%, 0 56%, 0 48%, 0 40%, 0 32%, 0 24%, 0 16%, 0 8%, 0 0);
-        }
-
-        .curtain-open .curtain-left {
-            transform: scaleX(0.2) translateX(-30%);
-            clip-path: polygon(0 0, 100% 0, 100% 8%, 98.5% 16%, 96% 24%, 92% 32%, 86% 40%, 79% 48%, 71% 56%, 66% 62%, 63% 68%, 64.5% 76%, 66% 84%, 67.5% 92%, 69% 100%, 0 100%);
-        }
-
-        .curtain-open .curtain-right {
-            transform: scaleX(0.2) translateX(30%);
-            clip-path: polygon(100% 0, 100% 100%, 31% 100%, 32.5% 92%, 34% 84%, 35.5% 76%, 37% 68%, 34% 62%, 29% 56%, 21% 48%, 14% 40%, 8% 32%, 4% 24%, 1.5% 16%, 0 8%, 0 0);
-        }
-
-        .tieback {
-            position: absolute;
-            top: calc(68% - 8px);
-            width: 18.5%; height: 16px;
-            z-index: 25; opacity: 0; border-radius: 8px;
-            background: linear-gradient(180deg, #FFF5D1 0%, #D4AF37 35%, #7E661B 100%);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.6);
-            transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
-            pointer-events: none;
-        }
-        .tieback-left { left: 0; transform: translateX(-20px); }
-        .tieback-right { right: 0; transform: translateX(20px); }
-        .curtain-open .tieback { opacity: 1; transform: translateX(0); }
-        .tieback::after {
-            content: "";
-            position: absolute; top: 10px; width: 12px; height: 48px;
-            border-radius: 3px 3px 9px 9px;
-            background: linear-gradient(180deg, #D4AF37, #AA8C2C 70%, #7E661B);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.5);
-        }
-        .tieback-left::after { right: 8px; }
-        .tieback-right::after { left: 8px; }
-
-        .curtain-valance {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            z-index: 30; pointer-events: none;
-            filter: drop-shadow(0 12px 14px rgba(0,0,0,0.65));
-            transform-origin: top center;
-        }
-        .curtain-open .curtain-valance { animation: valanceSway 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
-        @keyframes valanceSway {
-            0% { transform: scaleY(1); }
-            30% { transform: scaleY(1.12); }
-            60% { transform: scaleY(0.95); }
-            80% { transform: scaleY(1.03); }
-            100% { transform: scaleY(1); }
-        }
-
-        body.curtain-lock .glass-card, body.curtain-anim .glass-card { backdrop-filter: none; }
-        .curtain-valance svg { display: block; width: 100%; height: clamp(130px, 26vh, 250px); }
-        .curtain-valance .fl { fill: none; stroke: rgba(0,0,0,0.45); stroke-width: 3; vector-effect: non-scaling-stroke; }
-        .curtain-valance .fh { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 2; vector-effect: non-scaling-stroke; }
-        .curtain-valance .gt { fill: none; stroke: #D4AF37; stroke-width: 4; vector-effect: non-scaling-stroke; }
-
-        /* Yalnız İşıqlı Mərkəzi Toxunma Nöqtəsi (Heç bir yazı yoxdur) */
-        .tap-seal {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 35;
-            cursor: pointer;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-        }
-
-        .curtain-open .tap-seal {
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .glowing-center {
-            width: 85px; height: 85px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,245,209,1) 0%, rgba(212,175,55,0.8) 50%, rgba(170,140,44,0.4) 100%);
-            box-shadow: 0 0 35px #FFF5D1, 0 0 70px #D4AF37, inset 0 0 15px #ffffff;
-            animation: pulseGlow 2s infinite ease-in-out;
-            display: flex; items-center; justify-content: center;
-            border: 2px solid #FFF5D1;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 25px #FFF5D1, 0 0 50px #D4AF37; }
-            50% { transform: scale(1.12); box-shadow: 0 0 45px #FFF5D1, 0 0 90px #D4AF37; }
-        }
-
-        .content-card {
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
-            transform: scale(0.9);
-            opacity: 0;
-        }
-
-        .content-active .content-card {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        .glass-card {
-            background: rgba(15, 34, 63, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-        }
-    </style>
 </head>
 <body class="curtain-lock flex flex-col items-center min-h-screen relative">
 
@@ -261,12 +52,10 @@
 
     <!-- Top Controls: Language Switcher & Music Button -->
     <div class="fixed top-5 right-5 z-50 flex items-center gap-3">
-        <!-- Language Switcher Button -->
         <button id="langToggle" class="px-4 py-2 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 font-cinzel font-bold text-xs shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow cursor-pointer">
             RU
         </button>
 
-        <!-- Music Button -->
         <button id="musicToggle" class="w-12 h-12 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 flex items-center justify-center shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow cursor-pointer">
             <i class="fas fa-music text-lg" id="musicIcon"></i>
         </button>
@@ -318,7 +107,7 @@
         <div class="tieback tieback-left"></div>
         <div class="tieback tieback-right"></div>
 
-        <!-- Yalnız İşıqlı Mərkəzi Nöqtə (Heç bir yazı yoxdur) -->
+        <!-- İşıqlı Mərkəzi Nöqtə -->
         <div id="sealBtn" class="tap-seal flex items-center justify-center">
             <div class="glowing-center"></div>
         </div>
@@ -330,7 +119,7 @@
 
         <header class="text-center my-12 px-4 max-w-3xl flex flex-col items-center">
             <!-- GitHub SFAZ_logo.png loqosu -->
-            <div class="bg-white/95 px-6 py-3 rounded-xl shadow-2xl mb-6 border border-gold-400/50 flex items-center justify-center">
+            <div class="logo-box bg-white/95 px-6 py-3 rounded-xl shadow-2xl mb-6 border border-gold-400/50 flex items-center justify-center">
                 <img src="SFAZ_logo.png" alt="SF Azerbaijan Logo" class="h-12 md:h-14 object-contain">
             </div>
 
@@ -458,7 +247,7 @@
 
             <div class="glass-card p-6 rounded-2xl shadow-xl border border-gold-500/30 text-center flex flex-col justify-between">
                 <div>
-                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold" data-i18n="rsvp_label">İŞTİRAK TƏSDİQİ</span>
+                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold" data-i18n="rsvp_label">İŞTİRAK TƏSDİqİ</span>
                     <h3 class="text-white font-bold text-lg mt-1" data-i18n="rsvp_title">Qeydiyyat</h3>
                     <p class="text-gray-300 text-xs mt-2" data-i18n="rsvp_desc">Yerlərin planlaşdırılması üçün zəhmət olmasa iştirakınızı təsdiqləyin.</p>
                 </div>
@@ -484,7 +273,6 @@
 
     <!-- SCRIPTS -->
     <script>
-        // Dictionary for AZ / RU
         const translations = {
             az: {
                 badge: "XÜSUSİ DƏVƏTNAMƏ",
@@ -541,7 +329,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Snowflakes generator
             const snowContainer = document.getElementById('snow-container');
             for (let i = 0; i < 50; i++) {
                 const flake = document.createElement('div');
@@ -666,7 +453,6 @@
                 });
             }
 
-            // Countdown to Event Date (December 25, 2026)
             const targetDate = new Date('December 25, 2026 18:30:00').getTime();
 
             function updateCountdown() {
@@ -698,6 +484,19 @@
 
             updateCountdown();
             setInterval(updateCountdown, 1000);
+
+            // Səhifə üzərində klikləmə dalğası (Ripple effect)
+            document.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple-effect');
+                const size = 60;
+                ripple.style.width = size + 'px';
+                ripple.style.height = size + 'px';
+                ripple.style.left = (e.pageX - size / 2) + 'px';
+                ripple.style.top = (e.pageY - size / 2) + 'px';
+                document.body.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
         });
     </script>
 </body>
