@@ -88,7 +88,7 @@
             box-shadow: 0 12px 35px rgba(212, 175, 55, 0.3);
         }
 
-        /* ================= TEATR PƏRDƏSİ (YENİLƏNMİŞ) ================= */
+        /* ================= TEATR PƏRDƏSİ ================= */
         .curtain-container {
             --v0: #050d19; --v1: #0e2342; --v2: #1f4274; --v3: #4a7bc4;
             position: fixed; inset: 0; z-index: 40; overflow: hidden;
@@ -98,7 +98,6 @@
         .curtain-container.curtain-open { pointer-events: none; }
         .curtain-container.curtain-fade { opacity: 0; }
 
-        /* Pərdə arxasından süzülən səhnə işığı */
         .stage-glow {
             position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0.55;
             background:
@@ -110,7 +109,6 @@
         @keyframes glowFlicker { 0%,100% { opacity: 0.5; } 50% { opacity: 0.75; } }
         .curtain-open .stage-glow { animation: none; opacity: 1; transform: scaleX(3.2); }
 
-        /* İncə parça qırışları: 4 qat, fərqli periodlarla */
         .velvet {
             background:
                 linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.45) 100%),
@@ -140,7 +138,6 @@
             background: repeating-linear-gradient(90deg, #AA8C2C 0px, #F7D070 2px, #D4AF37 4px, #7E661B 6px, transparent 7px, transparent 8px);
         }
 
-        /* İç kənarın işıqlı xətti (qızılı parıltı) */
         .edge {
             position: absolute; top: 0; bottom: 0; width: 34px; pointer-events: none; z-index: 2;
             animation: edgePulse 2.4s infinite ease-in-out;
@@ -166,7 +163,6 @@
             clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 92%, 0 84%, 0 76%, 0 68%, 0 62%, 0 56%, 0 48%, 0 40%, 0 32%, 0 24%, 0 16%, 0 8%, 0 0);
         }
 
-        /* Açılış: dalğalı hərəkət - kənar sinus kimi əyilir, parça yığılarkən dalğalanır */
         .curtain-open .curtain-left { animation: waveOpenL 2.1s linear forwards; }
         .curtain-open .curtain-right { animation: waveOpenR 2.1s linear 0.08s forwards; }
         .curtain-open .edge { animation: edgePulse 0.7s infinite ease-in-out; }
@@ -197,14 +193,6 @@
         .tieback-left { left: 0; transform: translateX(-20px); }
         .tieback-right { right: 0; transform: translateX(20px); }
         .curtain-open .tieback { opacity: 1; transform: translateX(0); }
-        .tieback::after {
-            content: ""; position: absolute; top: 10px; width: 12px; height: 48px;
-            border-radius: 3px 3px 9px 9px;
-            background: linear-gradient(180deg, #D4AF37, #AA8C2C 70%, #7E661B);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.5);
-        }
-        .tieback-left::after { right: 8px; }
-        .tieback-right::after { left: 8px; }
 
         .curtain-valance {
             position: absolute; top: 0; left: 0; right: 0; z-index: 30; pointer-events: none;
@@ -222,13 +210,22 @@
         .curtain-valance .fh { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 2; vector-effect: non-scaling-stroke; }
         .curtain-valance .gt { fill: none; stroke: #D4AF37; stroke-width: 4; vector-effect: non-scaling-stroke; }
 
-        /* ================= YENİ İL DÜYMƏSİ (bəzək topu) ================= */
+        /* Pərdədəki Yuxarı SF Loqosu */
+        .curtain-logo {
+            position: absolute; top: 18%; left: 50%; transform: translateX(-50%);
+            z-index: 35; transition: transform 0.8s ease, opacity 0.8s ease;
+        }
+        .curtain-open .curtain-logo { transform: translateX(-50%) translateY(-30px) scale(0.8); opacity: 0; pointer-events: none; }
+
+        /* ================= YENİ İL DÜYMƏSİ ================= */
         .tap-seal {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            position: absolute; top: 54%; left: 50%; transform: translate(-50%, -50%);
             z-index: 35; cursor: pointer; display: flex; flex-direction: column; align-items: center;
             transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
         }
         .curtain-open .tap-seal { transform: translate(-50%, -50%) scale(0); opacity: 0; pointer-events: none; }
+
+        .ornament-wrapper { position: relative; display: flex; items-center: center; justify-content: center; }
 
         .ornament { position: relative; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0; animation: ornSwing 3.2s infinite ease-in-out; }
         @keyframes ornSwing { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
@@ -255,12 +252,25 @@
             content: ""; position: absolute; inset: 7px; border-radius: 50%;
             border: 1px dashed rgba(8,19,36,0.45);
         }
-        .orn-ball i { font-size: 22px; color: #1b365d; }
-        .orn-ball b { font-size: 22px; letter-spacing: 1px; font-weight: 800; line-height: 1; }
-        .orn-ball small { font-size: 9px; letter-spacing: 3px; font-weight: 700; margin-top: 2px; }
+        .orn-ball i { font-size: 32px; color: #1b365d; }
         @keyframes ballGlow {
             0%,100% { box-shadow: 0 0 25px rgba(255,245,209,0.8), 0 0 55px rgba(212,175,55,0.6), inset -8px -10px 18px rgba(126,102,27,0.55); }
             50% { box-shadow: 0 0 40px rgba(255,245,209,1), 0 0 95px rgba(212,175,55,0.95), inset -8px -10px 18px rgba(126,102,27,0.55); }
+        }
+
+        /* Oyuncağın sağındakı Yolka (Tree) */
+        .side-tree {
+            position: absolute; left: 125px; bottom: 5px;
+            font-size: 75px;
+            background: linear-gradient(135deg, #FFF5D1 0%, #F7D070 40%, #D4AF37 70%, #AA8C2C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(247,208,112,0.6));
+            animation: treeGlow 2.5s infinite ease-in-out;
+        }
+        @keyframes treeGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(247,208,112,0.4)); }
+            50% { filter: drop-shadow(0 0 22px rgba(255,245,209,0.9)); }
         }
 
         .spark { position: absolute; color: #FFF5D1; font-size: 14px; text-shadow: 0 0 10px #F7D070, 0 0 20px #D4AF37; animation: sparkle 1.8s infinite ease-in-out; opacity: 0; pointer-events: none; }
@@ -269,13 +279,6 @@
         .spark.s3 { bottom: 4px; left: -14px; font-size: 11px; animation-delay: 1.1s; }
         .spark.s4 { bottom: 20px; right: -18px; font-size: 12px; animation-delay: 0.3s; }
         @keyframes sparkle { 0%,100% { opacity: 0; transform: scale(0.4) rotate(0deg); } 50% { opacity: 1; transform: scale(1.2) rotate(90deg); } }
-
-        .tap-hint {
-            margin-top: 22px; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.3em;
-            color: #FFF5D1; text-transform: uppercase; text-shadow: 0 0 12px rgba(212,175,55,0.9);
-            animation: hintBlink 1.8s infinite ease-in-out;
-        }
-        @keyframes hintBlink { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
 
         .content-card { transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease; transform: scale(0.9); opacity: 0; }
         .content-active .content-card { transform: scale(1); opacity: 1; }
@@ -286,19 +289,32 @@
             transform: scale(0); animation: rippleAnim 0.6s linear; pointer-events: none; z-index: 999;
         }
         @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+        .lang-btn-active {
+            background-color: rgba(212, 175, 55, 0.25);
+            border-color: #F7D070;
+            color: #FFF5D1;
+            box-shadow: 0 0 15px rgba(212,175,55,0.6);
+        }
     </style>
 </head>
 <body class="curtain-lock flex flex-col items-center min-h-screen relative">
 
     <div id="snow-container" class="fixed inset-0 overflow-hidden pointer-events-none z-10"></div>
 
-    <div class="fixed top-5 right-5 z-50 flex items-center gap-3">
-        <button id="langToggle" class="px-4 py-2 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 font-cinzel font-bold text-xs shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow cursor-pointer">
-            RU
-        </button>
+    <!-- İKİ AYRI DİL DÜYMƏSİ VƏ MUSİQİ -->
+    <div class="fixed top-5 right-5 z-50 flex items-center gap-2">
+        <div class="flex items-center bg-brandblue-950/90 p-1 rounded-full border border-gold-500/40 backdrop-blur-md shadow-xl">
+            <button id="langAz" onclick="switchLanguage('az')" class="px-3 py-1 rounded-full text-gold-300 font-cinzel font-bold text-xs transition-all cursor-pointer lang-btn-active">
+                AZ
+            </button>
+            <button id="langRu" onclick="switchLanguage('ru')" class="px-3 py-1 rounded-full text-gold-300/60 font-cinzel font-bold text-xs transition-all cursor-pointer hover:text-gold-100">
+                RU
+            </button>
+        </div>
 
-        <button id="musicToggle" class="w-12 h-12 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 flex items-center justify-center shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow cursor-pointer">
-            <i class="fas fa-music text-lg" id="musicIcon"></i>
+        <button id="musicToggle" class="w-10 h-10 rounded-full bg-brandblue-950/90 border border-gold-400 text-gold-300 flex items-center justify-center shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md cursor-pointer">
+            <i class="fas fa-music text-base" id="musicIcon"></i>
         </button>
         <audio id="bgMusic" loop preload="auto">
             <source src="https://raw.githubusercontent.com/akramcs307/devetname/main/Happy%20newyear.mp3" type="audio/mpeg">
@@ -309,6 +325,13 @@
     <div id="curtainOverlay" class="curtain-container">
 
         <div class="stage-glow"></div>
+
+        <!-- PƏRDƏNİN YUXARI HİSSƏSİNDƏKİ SF LOQOSU -->
+        <div class="curtain-logo">
+            <div class="logo-box bg-white/95 px-6 py-2.5 rounded-xl shadow-2xl border border-gold-400/50 flex items-center justify-center">
+                <img src="SFAZ_logo.png" alt="SF Azerbaijan Logo" class="h-10 md:h-12 object-contain">
+            </div>
+        </div>
 
         <div class="curtain-valance">
             <svg viewBox="0 0 1000 240" preserveAspectRatio="none" aria-hidden="true">
@@ -350,19 +373,22 @@
         <div class="tieback tieback-left"></div>
         <div class="tieback tieback-right"></div>
 
-        <!-- Yeni İl bəzək topu düyməsi -->
+        <!-- Yeni İl bəzək topu düyməsi və Sağında Yolka -->
         <div id="sealBtn" class="tap-seal">
-            <div class="ornament">
-                <span class="orn-ring"></span>
-                <span class="orn-cap"></span>
-                <div class="orn-ball">
-                    <i class="fas fa-snowflake"></i>
-                    <b>2027</b>
-                    <span class="spark s1"><i class="fas fa-star"></i></span>
-                    <span class="spark s2"><i class="fas fa-star"></i></span>
-                    <span class="spark s3"><i class="fas fa-star"></i></span>
-                    <span class="spark s4"><i class="fas fa-star"></i></span>
+            <div class="ornament-wrapper">
+                <div class="ornament">
+                    <span class="orn-ring"></span>
+                    <span class="orn-cap"></span>
+                    <div class="orn-ball">
+                        <i class="fas fa-snowflake"></i>
+                        <span class="spark s1"><i class="fas fa-star"></i></span>
+                        <span class="spark s2"><i class="fas fa-star"></i></span>
+                        <span class="spark s3"><i class="fas fa-star"></i></span>
+                        <span class="spark s4"><i class="fas fa-star"></i></span>
+                    </div>
                 </div>
+                <!-- Sağ tərəfdə qoyulmuş Yolka iconu -->
+                <i class="fas fa-tree side-tree"></i>
             </div>
         </div>
 
@@ -488,7 +514,7 @@
 
             <div class="glass-card p-6 rounded-2xl shadow-xl border border-gold-500/30 text-center flex flex-col justify-between">
                 <div>
-                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold" data-i18n="rsvp_label">İŞTİRAK TƏSDİqİ</span>
+                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold" data-i18n="rsvp_label">İŞTİRAK TƏSDİQİ</span>
                     <h3 class="text-white font-bold text-lg mt-1" data-i18n="rsvp_title">Qeydiyyat</h3>
                     <p class="text-gray-300 text-xs mt-2" data-i18n="rsvp_desc">Yerlərin planlaşdırılması üçün zəhmət olmasa iştirakınızı təsdiqləyin.</p>
                 </div>
@@ -527,7 +553,7 @@
                 p2_title: "Rəhbərliyin Təbrik Nitqi & Qala Ziyafəti", p2_desc: "İlin yekunları, uğur hekayələri və bayram ziyafəti.",
                 p3_title: "Show Program & Əyləncə", p3_desc: "Canlı musiqi, hədiyyəli viktorinalar və diskoteka.",
                 dress_label: "GEYİM KODU", dress_desc: "Şirkətin brand rənglərinə (tünd göy və ya qızılı elementlərə) uyğun zərif geyim tərzinə üstünlük verməyiniz xahiş olunur.",
-                rsvp_label: "İŞTİRAK TƏSDİqİ", rsvp_title: "Qeydiyyat", rsvp_desc: "Yerlərin planlaşdırılması üçün zəhmət olmasa iştirakınızı təsdiqləyin.",
+                rsvp_label: "İŞTİRAK TƏSDİQİ", rsvp_title: "Qeydiyyat", rsvp_desc: "Yerlərin planlaşdırılması üçün zəhmət olmasa iştirakınızı təsdiqləyin.",
                 rsvp_btn: "Gəlişimi Təsdiqləyirəm", rsvp_success: "Təşəkkürlər! Qeydiyyatınız qəbul olundu.",
                 footer: "Bütün hüquqlar qorunur."
             },
@@ -561,9 +587,20 @@
                     el.innerText = translations[lang][key];
                 }
             });
-            const langBtn = document.getElementById('langToggle');
-            if (langBtn) {
-                langBtn.innerText = lang === 'az' ? 'RU' : 'AZ';
+
+            const btnAz = document.getElementById('langAz');
+            const btnRu = document.getElementById('langRu');
+
+            if (lang === 'az') {
+                btnAz.classList.add('lang-btn-active');
+                btnAz.classList.remove('text-gold-300/60');
+                btnRu.classList.remove('lang-btn-active');
+                btnRu.classList.add('text-gold-300/60');
+            } else {
+                btnRu.classList.add('lang-btn-active');
+                btnRu.classList.remove('text-gold-300/60');
+                btnAz.classList.remove('lang-btn-active');
+                btnAz.classList.add('text-gold-300/60');
             }
         }
 
@@ -589,17 +626,8 @@
             const musicToggle = document.getElementById('musicToggle');
             const musicIcon = document.getElementById('musicIcon');
             const bgMusic = document.getElementById('bgMusic');
-            const langToggle = document.getElementById('langToggle');
             let isPlaying = false;
             let curtainOpened = false;
-
-            if (langToggle) {
-                langToggle.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const newLang = currentLang === 'az' ? 'ru' : 'az';
-                    switchLanguage(newLang);
-                });
-            }
 
             function openCurtain() {
                 if (curtainOpened) return;
@@ -614,7 +642,6 @@
                     toggleMusic();
                 }
 
-                // Pərdə aralanan kimi iki tərəfdən qızılı konfeti
                 setTimeout(() => {
                     if (typeof confetti === 'function') {
                         const colors = ['#D4AF37', '#FFF5D1', '#1b365d'];
