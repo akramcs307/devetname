@@ -46,8 +46,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .gold-glow { box-shadow: 0 0 35px rgba(212, 175, 55, 0.45); }
-
         .snowflake {
             position: absolute; background: #ffffff; border-radius: 50%;
             pointer-events: none; opacity: 0.8; animation: fallAndSway linear infinite;
@@ -83,7 +81,7 @@
             100% { border-color: rgba(247, 208, 112, 0.7); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15); }
         }
 
-        /* ================= TEATR PƏRDƏSİ (ŞƏKİLDƏKİ UYGUNLAŞDIRMA) ================= */
+        /* ================= ORIGINAL PƏRDƏ STİLİ ================= */
         .curtain-container {
             --v0: #050d19; --v1: #0e2342; --v2: #1f4274; --v3: #4a7bc4;
             position: fixed; inset: 0; z-index: 40; overflow: hidden;
@@ -120,13 +118,6 @@
         }
         .curtain-right { transition-delay: 0.12s; }
 
-        .curtain-panel::before {
-            content: ""; position: absolute; inset: 0;
-            background: linear-gradient(180deg, transparent 58%, rgba(0,0,0,0.42) 68%, transparent 78%);
-            opacity: 0; transition: opacity 0.8s ease 0.6s;
-        }
-        .curtain-open .curtain-panel::before { opacity: 1; }
-
         .curtain-panel::after {
             content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 24px;
             border-top: 3px solid #D4AF37;
@@ -145,7 +136,6 @@
             left: 0;
             background: linear-gradient(90deg, rgba(255,246,210,1) 0px, rgba(255,222,130,0.8) 2px, rgba(247,208,112,0.4) 9px, rgba(212,175,55,0.15) 20px, transparent 34px);
         }
-        @keyframes edgePulse { 0%,100% { opacity: 0.75; } 50% { opacity: 1; } }
 
         .curtain-left {
             left: 0; transform-origin: left center;
@@ -175,7 +165,7 @@
             filter: drop-shadow(0 12px 14px rgba(0,0,0,0.65)); transform-origin: top center;
         }
 
-        /* SF LOQOSU - YUXARI HİSSƏDƏ AĞ FON VƏ ZƏRİF ÇƏRÇİVƏ */
+        /* SF LOQOSU */
         .curtain-logo {
             position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
             z-index: 38; transition: transform 0.8s ease, opacity 0.8s ease;
@@ -209,50 +199,35 @@
             line-height: 1.2;
         }
 
-        /* SAĞ TƏRƏFDƏ HƏRƏKƏTLİ İŞIQLI YOLKA */
+        /* NORMAL SAĞ YOLKA */
         .side-tree-container {
-            position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
-            z-index: 35; pointer-events: none;
+            position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+            z-index: 35; pointer-events: none; text-align: center;
             transition: opacity 0.6s ease;
         }
         .curtain-open .side-tree-container { opacity: 0; }
 
-        .tree-svg {
-            width: clamp(180px, 22vw, 320px);
-            height: auto;
-            filter: drop-shadow(0 0 15px rgba(247,208,112,0.7));
+        .classic-tree {
+            font-size: clamp(120px, 18vw, 240px);
+            background: linear-gradient(135deg, #FFF5D1 0%, #F7D070 40%, #D4AF37 70%, #AA8C2C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(247,208,112,0.7));
+            animation: treeGlow 2.5s infinite ease-in-out;
+        }
+        @keyframes treeGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(247,208,112,0.5)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 35px rgba(255,245,209,0.95)); transform: scale(1.02); }
         }
 
-        .tree-path {
-            stroke: url(#treeGoldGrad);
-            stroke-width: 4;
-            fill: none;
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 0;
-            animation: dashFlow 4s linear infinite;
-        }
-
-        @keyframes dashFlow {
-            0% { stroke-dashoffset: 1000; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        .star-glow {
-            animation: starPulse 1.5s infinite alternate ease-in-out;
-        }
-        @keyframes starPulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 5px #FFF5D1); }
-            100% { transform: scale(1.25); filter: drop-shadow(0 0 20px #F7D070); }
-        }
-
-        /* KƏNARLARDA ASILAN HƏRƏKƏTLİ OYUNCAQLAR */
+        /* OYUNCAQLAR (ASILAN) */
         .hanging-ornaments {
             position: absolute; top: 0; z-index: 35; pointer-events: none;
             display: flex; gap: 14px;
             transition: opacity 0.6s ease;
         }
-        .hanging-left { left: 3%; }
-        .hanging-right { right: 3%; }
+        .hanging-left { left: 4%; }
+        .hanging-right { right: 4%; }
         .curtain-open .hanging-ornaments { opacity: 0; }
 
         .ornament-item {
@@ -280,9 +255,9 @@
         }
         .orn-ball-small i { font-size: 11px; color: #1b365d; }
 
-        /* MƏRKƏZ DÜYMƏ */
+        /* MƏRKƏZ OYUNCAQ DÜYMƏSİ */
         .tap-seal {
-            position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             z-index: 36; cursor: pointer; display: flex; flex-direction: column; align-items: center;
             transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
         }
@@ -313,11 +288,23 @@
             box-shadow: 0 0 12px rgba(212,175,55,0.6);
         }
 
+        /* MOBİL ELEKTRANLAR ÜÇÜN XÜSUSİ TƏNZİMLƏMƏ (RESPONSIVE FIX) */
         @media (max-width: 768px) {
-            .side-greeting { top: 38%; left: 50%; transform: translateX(-50%); width: 90%; }
-            .side-tree-container { top: 72%; right: 50%; transform: translateX(50%); }
-            .tree-svg { width: 170px; }
-            .tap-seal { top: 54%; }
+            .side-greeting {
+                top: 28%; left: 50%; transform: translateX(-50%); width: 100%;
+            }
+            .side-greeting h2 { font-size: 38px; }
+            .side-tree-container {
+                top: 76%; right: 50%; transform: translateX(50%);
+            }
+            .classic-tree { font-size: 130px; }
+            .tap-seal { top: 52%; }
+            .hanging-left { left: 2%; gap: 6px; }
+            .hanging-right { right: 2%; gap: 6px; }
+            .orn-ball-center { width: 90px; height: 90px; }
+            .orn-ball-center i { font-size: 30px; }
+            .curtain-logo { top: 8px; }
+            .curtain-logo-box img { height: 32px; }
         }
     </style>
 </head>
@@ -325,7 +312,7 @@
 
     <div id="snow-container" class="fixed inset-0 overflow-hidden pointer-events-none z-10"></div>
 
-    <!-- İKİ AYRI DİL DÜYMƏSİ VƏ MUSİQİ -->
+    <!-- DİL VƏ MUSİQİ -->
     <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
         <div class="flex items-center bg-brandblue-950/90 p-1 rounded-full border border-gold-500/40 backdrop-blur-md shadow-xl">
             <button id="langAz" onclick="switchLanguage('az')" class="px-3 py-1 rounded-full text-gold-300 font-cinzel font-bold text-xs transition-all cursor-pointer lang-btn-active">
@@ -344,19 +331,19 @@
         </audio>
     </div>
 
-    <!-- PƏRDƏ OVERLAY -->
+    <!-- TEATR PƏRDƏSİ (OVERLAY) -->
     <div id="curtainOverlay" class="curtain-container">
 
         <div class="stage-glow"></div>
 
-        <!-- SF LOQOSU (YUXARI TƏN ORTADA VƏ AĞ FONDA) -->
+        <!-- YUXARI SF LOQOSU -->
         <div class="curtain-logo">
             <div class="curtain-logo-box">
                 <img src="SFAZ_logo.png" alt="SF Azerbaijan Logo" class="h-10 md:h-12 object-contain">
             </div>
         </div>
 
-        <!-- SOL KƏNARDAN ASILAN OYUNCAQLAR -->
+        <!-- SOL OYUNCAQLAR -->
         <div class="hanging-ornaments hanging-left">
             <div class="ornament-item">
                 <div class="orn-string" style="height: 60px;"></div>
@@ -372,7 +359,7 @@
             </div>
         </div>
 
-        <!-- SAĞ KƏNARDAN ASILAN OYUNCAQLAR -->
+        <!-- SAĞ OYUNCAQLAR -->
         <div class="hanging-ornaments hanging-right">
             <div class="ornament-item">
                 <div class="orn-string" style="height: 80px;"></div>
@@ -388,43 +375,20 @@
             </div>
         </div>
 
-        <!-- SOL TƏRƏFDƏ "YENİ İLİNİZ MÜBARƏK" YAZISI -->
+        <!-- SOL TƏRƏF YAZISI -->
         <div class="side-greeting">
             <h2>Yeni İliniz<br>Mübarək</h2>
         </div>
 
-        <!-- SAĞ TƏRƏFDƏ HƏRƏKƏTLİ İŞIQLI YOLKA (ŞƏKİLDƏKİ KİMİ) -->
+        <!-- SAĞ TƏRƏF NORMAL YOLKA -->
         <div class="side-tree-container">
-            <svg class="tree-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="treeGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#FFF5D1"/>
-                        <stop offset="50%" stop-color="#F7D070"/>
-                        <stop offset="100%" stop-color="#D4AF37"/>
-                    </linearGradient>
-                </defs>
-
-                <!-- Başdakı Parlaq Ulduz -->
-                <g class="star-glow" transform="translate(100, 20)">
-                    <polygon points="0,-12 3,-4 11,-4 5,1 7,9 0,4 -7,9 -5,1 -11,-4 -3,-4" fill="#FFF5D1" stroke="#F7D070" stroke-width="1"/>
-                </g>
-
-                <!-- İşıqlı Qıvrım Yolka Xətti -->
-                <path class="tree-path" d="
-                    M 100, 32
-                    Q 115,40 100,48 Q 85,56 100,64
-                    Q 125,74 100,84 Q 75,94 100,104
-                    Q 135,116 100,128 Q 65,140 100,152
-                    Q 145,166 100,180 Q 55,194 100,208
-                    Q 155,224 100,240
-                "/>
-            </svg>
+            <i class="fas fa-tree classic-tree"></i>
         </div>
 
         <div class="curtain-panel curtain-left velvet"><div class="edge"></div></div>
         <div class="curtain-panel curtain-right velvet"><div class="edge"></div></div>
 
-        <!-- MƏRKƏZ OYUNCAQ DÜYMƏSİ -->
+        <!-- ORTA DÜYMƏ -->
         <div id="sealBtn" class="tap-seal">
             <div class="orn-ball-center">
                 <i class="fas fa-snowflake"></i>
@@ -433,7 +397,7 @@
 
     </div>
 
-    <!-- ƏSAS MƏZMUN -->
+    <!-- MƏZMUN -->
     <div id="mainContent" class="content-card w-full flex flex-col items-center pb-16 z-20">
 
         <header class="text-center my-10 px-4 max-w-3xl flex flex-col items-center">
@@ -443,7 +407,6 @@
 
             <span class="text-gold-300 font-cinzel tracking-[0.3em] text-xs md:text-sm uppercase font-semibold mb-2" data-i18n="subtitle">KORPORATİV YENİ İL QALA GECƏSİ</span>
             
-            <!-- BAŞLIQ: "İl ilə" AYRI YAZILIB VƏ SCRIPT ŞRİFTİ İLƏ BƏRPA OLUNUB -->
             <h1 class="font-script text-5xl md:text-7xl gold-text my-2 drop-shadow-lg leading-snug" data-i18n="title">
                 Köhnə İl ilə Vida &amp; 2027-yə Salam
             </h1>
