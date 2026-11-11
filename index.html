@@ -6,7 +6,7 @@
     <title>SF Azerbaijan - Yeni İl Korporativ Qala Gecəsi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
@@ -20,8 +20,7 @@
                     fontFamily: {
                         serif: ['Playfair Display', 'serif'],
                         sans: ['Montserrat', 'sans-serif'],
-                        cinzel: ['Cinzel', 'serif'],
-                        script: ['Great Vibes', 'cursive']
+                        cinzel: ['Cinzel', 'serif']
                     }
                 }
             }
@@ -46,7 +45,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .gold-glow { box-shadow: 0 0 40px rgba(212, 175, 55, 0.5); }
+        .gold-glow { box-shadow: 0 0 35px rgba(212, 175, 55, 0.45); }
 
         .snowflake {
             position: absolute; background: #ffffff; border-radius: 50%;
@@ -210,67 +209,91 @@
         .curtain-valance .fh { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 2; vector-effect: non-scaling-stroke; }
         .curtain-valance .gt { fill: none; stroke: #D4AF37; stroke-width: 4; vector-effect: non-scaling-stroke; }
 
-        /* Pərdədəki Yuxarı SF Loqosu */
+        /* Pərdədəki Yuxarı SF Loqosu - Böyüdülmüş və Qızılı Çərçivəli */
         .curtain-logo {
-            position: absolute; top: 18%; left: 50%; transform: translateX(-50%);
+            position: absolute; top: 16%; left: 50%; transform: translateX(-50%);
             z-index: 35; transition: transform 0.8s ease, opacity 0.8s ease;
+            width: max-content;
         }
         .curtain-open .curtain-logo { transform: translateX(-50%) translateY(-30px) scale(0.8); opacity: 0; pointer-events: none; }
 
-        /* ================= YENİ İL DÜYMƏSİ ================= */
+        .curtain-logo-box {
+            background: rgba(15, 34, 63, 0.92);
+            border: 2px solid #F7D070;
+            box-shadow: 0 0 25px rgba(247, 208, 112, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.3);
+            border-radius: 1rem;
+            padding: 0.75rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ================= YENİ İL DÜYMƏSİ VƏ YOLKA ================= */
         .tap-seal {
-            position: absolute; top: 54%; left: 50%; transform: translate(-50%, -50%);
+            position: absolute; top: 56%; left: 50%; transform: translate(-50%, -50%);
             z-index: 35; cursor: pointer; display: flex; flex-direction: column; align-items: center;
             transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
         }
         .curtain-open .tap-seal { transform: translate(-50%, -50%) scale(0); opacity: 0; pointer-events: none; }
 
-        .ornament-wrapper { position: relative; display: flex; items-center: center; justify-content: center; }
+        .ornament-wrapper { 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 1.5rem;
+        }
 
         .ornament { position: relative; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0; animation: ornSwing 3.2s infinite ease-in-out; }
         @keyframes ornSwing { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
 
         .orn-cap {
-            width: 26px; height: 16px; border-radius: 4px 4px 2px 2px; z-index: 2;
+            width: 28px; height: 16px; border-radius: 4px 4px 2px 2px; z-index: 2;
             background: linear-gradient(90deg, #7E661B, #FFF5D1 45%, #AA8C2C);
             box-shadow: 0 2px 6px rgba(0,0,0,0.5);
         }
-        .orn-ring { width: 16px; height: 16px; border: 3px solid #E5B842; border-radius: 50%; margin-bottom: -4px; box-shadow: 0 0 8px rgba(247,208,112,0.8); }
+        .orn-ring { width: 18px; height: 18px; border: 3px solid #E5B842; border-radius: 50%; margin-bottom: -4px; box-shadow: 0 0 8px rgba(247,208,112,0.8); }
 
         .orn-ball {
-            position: relative; width: 112px; height: 112px; border-radius: 50%;
+            position: relative; width: 120px; height: 120px; border-radius: 50%;
             display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
             color: #081324; font-family: 'Cinzel', serif;
             background:
                 radial-gradient(circle at 32% 26%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 22%),
                 radial-gradient(circle at 50% 50%, #FFF5D1 0%, #F7D070 38%, #D4AF37 68%, #7E661B 100%);
             border: 2px solid #FFF5D1;
-            box-shadow: 0 0 30px rgba(255,245,209,0.9), 0 0 70px rgba(212,175,55,0.8), inset -8px -10px 18px rgba(126,102,27,0.55);
+            box-shadow: 0 0 35px rgba(255,245,209,0.9), 0 0 75px rgba(212,175,55,0.8), inset -8px -10px 18px rgba(126,102,27,0.55);
             animation: ballGlow 1.8s infinite ease-in-out;
         }
         .orn-ball::before {
             content: ""; position: absolute; inset: 7px; border-radius: 50%;
             border: 1px dashed rgba(8,19,36,0.45);
         }
-        .orn-ball i { font-size: 32px; color: #1b365d; }
+        .orn-ball i { font-size: 36px; color: #1b365d; }
         @keyframes ballGlow {
             0%,100% { box-shadow: 0 0 25px rgba(255,245,209,0.8), 0 0 55px rgba(212,175,55,0.6), inset -8px -10px 18px rgba(126,102,27,0.55); }
-            50% { box-shadow: 0 0 40px rgba(255,245,209,1), 0 0 95px rgba(212,175,55,0.95), inset -8px -10px 18px rgba(126,102,27,0.55); }
+            50% { box-shadow: 0 0 45px rgba(255,245,209,1), 0 0 100px rgba(212,175,55,0.95), inset -8px -10px 18px rgba(126,102,27,0.55); }
         }
 
-        /* Oyuncağın sağındakı Yolka (Tree) */
+        /* Oyuncağın sağındakı Böyüdülmüş və Estetik Yolka */
         .side-tree {
-            position: absolute; left: 125px; bottom: 5px;
-            font-size: 75px;
+            font-size: 95px;
             background: linear-gradient(135deg, #FFF5D1 0%, #F7D070 40%, #D4AF37 70%, #AA8C2C 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(247,208,112,0.6));
+            filter: drop-shadow(0 0 18px rgba(247,208,112,0.6));
             animation: treeGlow 2.5s infinite ease-in-out;
+            margin-bottom: -15px;
         }
         @keyframes treeGlow {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(247,208,112,0.4)); }
-            50% { filter: drop-shadow(0 0 22px rgba(255,245,209,0.9)); }
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(247,208,112,0.4)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 26px rgba(255,245,209,0.9)); transform: scale(1.03); }
+        }
+
+        @media (max-width: 640px) {
+            .side-tree { font-size: 75px; }
+            .orn-ball { width: 100px; height: 100px; }
+            .orn-ball i { font-size: 28px; }
         }
 
         .spark { position: absolute; color: #FFF5D1; font-size: 14px; text-shadow: 0 0 10px #F7D070, 0 0 20px #D4AF37; animation: sparkle 1.8s infinite ease-in-out; opacity: 0; pointer-events: none; }
@@ -326,10 +349,10 @@
 
         <div class="stage-glow"></div>
 
-        <!-- PƏRDƏNİN YUXARI HİSSƏSİNDƏKİ SF LOQOSU -->
+        <!-- PƏRDƏDƏKİ YUXARI SF LOQOSU (ÇƏRÇİVƏLİ VƏ BÖYÜK) -->
         <div class="curtain-logo">
-            <div class="logo-box bg-white/95 px-6 py-2.5 rounded-xl shadow-2xl border border-gold-400/50 flex items-center justify-center">
-                <img src="SFAZ_logo.png" alt="SF Azerbaijan Logo" class="h-10 md:h-12 object-contain">
+            <div class="curtain-logo-box">
+                <img src="SFAZ_logo.png" alt="SF Azerbaijan Logo" class="h-12 md:h-16 object-contain">
             </div>
         </div>
 
@@ -387,7 +410,7 @@
                         <span class="spark s4"><i class="fas fa-star"></i></span>
                     </div>
                 </div>
-                <!-- Sağ tərəfdə qoyulmuş Yolka iconu -->
+                <!-- Sağ tərəfdə daha böyük və təbii Yolka -->
                 <i class="fas fa-tree side-tree"></i>
             </div>
         </div>
@@ -397,18 +420,19 @@
     <!-- MAIN CONTENT -->
     <div id="mainContent" class="content-card w-full flex flex-col items-center pb-16 z-20">
 
-        <header class="text-center my-12 px-4 max-w-3xl flex flex-col items-center">
+        <header class="text-center my-10 px-4 max-w-3xl flex flex-col items-center">
             <div class="logo-box bg-white/95 px-6 py-3 rounded-xl shadow-2xl mb-6 border border-gold-400/50 flex items-center justify-center">
                 <img src="SFAZ_logo.png" alt="SF Azerbaijan Logo" class="h-12 md:h-14 object-contain">
             </div>
 
-            <div class="mb-4 inline-block bg-gold-500/10 border border-gold-500/30 px-4 py-1.5 rounded-full text-gold-300 text-xs font-cinzel tracking-widest">
-                <i class="fas fa-star mr-1.5 text-gold-400"></i> <span data-i18n="badge">XÜSUSİ DƏVƏTNAMƏ</span>
-            </div>
-
-            <span class="text-gold-300 font-cinzel tracking-[0.4em] text-xs md:text-sm uppercase font-semibold" data-i18n="subtitle">KORPORATİV YENİ İL QALA GECƏSİ</span>
-            <h1 class="font-script text-6xl md:text-8xl gold-text my-3 drop-shadow-lg" data-i18n="title">Köhnə İllə Vida &amp; 2027-yə Salam</h1>
-            <p class="text-gray-200 text-base md:text-lg max-w-xl mx-auto leading-relaxed font-light italic mt-4" data-i18n="description">
+            <span class="text-gold-300 font-cinzel tracking-[0.3em] text-xs md:text-sm uppercase font-semibold mb-2" data-i18n="subtitle">KORPORATİV YENİ İL QALA GECƏSİ</span>
+            
+            <!-- OXUNAQLI VƏ ÜST-ÜSTƏ DÜŞMƏYƏN NƏFİS BAŞLIQ (VAHİD FONT) -->
+            <h1 class="font-cinzel text-3xl md:text-5xl font-bold gold-text my-4 leading-tight tracking-wide drop-shadow-md" data-i18n="title">
+                Köhnə İllə Vida &amp; 2027-yə Salam
+            </h1>
+            
+            <p class="text-gray-200 text-sm md:text-base max-w-xl mx-auto leading-relaxed font-sans font-light italic mt-3" data-i18n="description">
                 "Şirkətimizin inkişafında birgə addımladığımız bu ili möhtəşəm bayram əhval-ruhiyyəsi ilə başa vurur və yeni hədəflərə birlikdə yollanırıq."
             </p>
         </header>
@@ -469,7 +493,7 @@
             <div class="glass-card p-8 rounded-2xl shadow-xl border border-gold-500/30">
                 <div class="text-center mb-8">
                     <span class="text-gold-300 font-cinzel tracking-[0.25em] text-xs uppercase font-bold" data-i18n="prog_label">GECƏNİN PROQRAMI</span>
-                    <h3 class="font-script text-4xl gold-text mt-1" data-i18n="prog_title">Bayram Gündəliyi</h3>
+                    <h3 class="font-cinzel text-2xl md:text-3xl gold-text font-bold mt-2" data-i18n="prog_title">Bayram Gündəliyi</h3>
                 </div>
 
                 <div class="space-y-6 relative before:absolute before:inset-0 before:left-7 before:w-0.5 before:bg-gold-500/30">
@@ -540,7 +564,6 @@
     <script>
         const translations = {
             az: {
-                badge: "XÜSUSİ DƏVƏTNAMƏ",
                 subtitle: "KORPORATİV YENİ İL QALA GECƏSİ",
                 title: "Köhnə İllə Vida & 2027-yə Salam",
                 description: "\"Şirkətimizin inkişafında birgə addımladığımız bu ili möhtəşəm bayram əhval-ruhiyyəsi ilə başa vurur və yeni hədəflərə birlikdə yollanırıq.\"",
@@ -558,7 +581,6 @@
                 footer: "Bütün hüquqlar qorunur."
             },
             ru: {
-                badge: "СПЕЦИАЛЬНОЕ ПРИГЛАШЕНИЕ",
                 subtitle: "КОРПОРАТИВНЫЙ НОВОГОДНИЙ ГАЛА-ВЕЧЕР",
                 title: "Прощание со старым годом & Привет 2027",
                 description: "\"Мы провожаем этот год, пройденный бок о бок в развитии нашей компании, с великолепным праздничным настроением и вместе устремляемся к новым целям.\"",
