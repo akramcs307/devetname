@@ -53,7 +53,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Pərdə açılana qədər səhifə sürüşməsin */
         html.curtain-lock, body.curtain-lock {
             overflow: hidden !important;
             height: 100% !important;
@@ -85,7 +84,7 @@
             100% { transform: translateY(105vh) translateX(15px); opacity: 0.2; }
         }
 
-        /* ===== ULTRA DINAMİK VƏ REALİSTİK TEATR PƏRDƏSİ ===== */
+        /* ===== TEATR PƏRDƏSİ VƏ İŞIQLI MƏRKƏZ ===== */
         .curtain-container {
             --v0: #07111f; --v1: #12294a; --v2: #24487b; --v3: #3a68b0;
             position: fixed;
@@ -110,13 +109,11 @@
 
         .curtain-panel {
             position: absolute;
-            top: 0;
-            bottom: 0;
+            top: 0; bottom: 0;
             width: 52%;
             z-index: 20;
             will-change: transform, clip-path;
             backface-visibility: hidden;
-            /* DƏRHAL VƏ HƏRƏKƏTLİ KELASTİK KEÇİD (1.8s) */
             transition: transform 1.8s cubic-bezier(0.22, 1.25, 0.36, 1), clip-path 1.8s cubic-bezier(0.22, 1.25, 0.36, 1);
         }
 
@@ -153,7 +150,6 @@
             clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 92%, 0 84%, 0 76%, 0 68%, 0 62%, 0 56%, 0 48%, 0 40%, 0 32%, 0 24%, 0 16%, 0 8%, 0 0);
         }
 
-        /* Yana elastik və dalğalı yığılma animasiyası */
         .curtain-open .curtain-left {
             transform: scaleX(0.2) translateX(-30%);
             clip-path: polygon(0 0, 100% 0, 100% 8%, 98.5% 16%, 96% 24%, 92% 32%, 86% 40%, 79% 48%, 71% 56%, 66% 62%, 63% 68%, 64.5% 76%, 66% 84%, 67.5% 92%, 69% 100%, 0 100%);
@@ -167,11 +163,8 @@
         .tieback {
             position: absolute;
             top: calc(68% - 8px);
-            width: 18.5%;
-            height: 16px;
-            z-index: 25;
-            opacity: 0;
-            border-radius: 8px;
+            width: 18.5%; height: 16px;
+            z-index: 25; opacity: 0; border-radius: 8px;
             background: linear-gradient(180deg, #FFF5D1 0%, #D4AF37 35%, #7E661B 100%);
             box-shadow: 0 3px 8px rgba(0,0,0,0.6);
             transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
@@ -182,10 +175,7 @@
         .curtain-open .tieback { opacity: 1; transform: translateX(0); }
         .tieback::after {
             content: "";
-            position: absolute;
-            top: 10px;
-            width: 12px;
-            height: 48px;
+            position: absolute; top: 10px; width: 12px; height: 48px;
             border-radius: 3px 3px 9px 9px;
             background: linear-gradient(180deg, #D4AF37, #AA8C2C 70%, #7E661B);
             box-shadow: 0 3px 6px rgba(0,0,0,0.5);
@@ -196,35 +186,32 @@
         .curtain-valance {
             position: absolute;
             top: 0; left: 0; right: 0;
-            z-index: 30;
-            pointer-events: none;
+            z-index: 30; pointer-events: none;
             filter: drop-shadow(0 12px 14px rgba(0,0,0,0.65));
             transform-origin: top center;
         }
         .curtain-open .curtain-valance { animation: valanceSway 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
         @keyframes valanceSway {
-            0%   { transform: scaleY(1); }
-            30%  { transform: scaleY(1.12); }
-            60%  { transform: scaleY(0.95); }
-            80%  { transform: scaleY(1.03); }
+            0% { transform: scaleY(1); }
+            30% { transform: scaleY(1.12); }
+            60% { transform: scaleY(0.95); }
+            80% { transform: scaleY(1.03); }
             100% { transform: scaleY(1); }
         }
 
         body.curtain-lock .glass-card, body.curtain-anim .glass-card { backdrop-filter: none; }
-        .curtain-valance svg {
-            display: block;
-            width: 100%;
-            height: clamp(130px, 26vh, 250px);
-        }
+        .curtain-valance svg { display: block; width: 100%; height: clamp(130px, 26vh, 250px); }
         .curtain-valance .fl { fill: none; stroke: rgba(0,0,0,0.45); stroke-width: 3; vector-effect: non-scaling-stroke; }
         .curtain-valance .fh { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 2; vector-effect: non-scaling-stroke; }
         .curtain-valance .gt { fill: none; stroke: #D4AF37; stroke-width: 4; vector-effect: non-scaling-stroke; }
 
+        /* Yalnız İşıqlı Mərkəzi Toxunma Nöqtəsi (Heç bir yazı yoxdur) */
         .tap-seal {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             z-index: 35;
+            cursor: pointer;
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
         }
 
@@ -232,6 +219,21 @@
             transform: translate(-50%, -50%) scale(0);
             opacity: 0;
             pointer-events: none;
+        }
+
+        .glowing-center {
+            width: 85px; height: 85px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,245,209,1) 0%, rgba(212,175,55,0.8) 50%, rgba(170,140,44,0.4) 100%);
+            box-shadow: 0 0 35px #FFF5D1, 0 0 70px #D4AF37, inset 0 0 15px #ffffff;
+            animation: pulseGlow 2s infinite ease-in-out;
+            display: flex; items-center; justify-content: center;
+            border: 2px solid #FFF5D1;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 25px #FFF5D1, 0 0 50px #D4AF37; }
+            50% { transform: scale(1.12); box-shadow: 0 0 45px #FFF5D1, 0 0 90px #D4AF37; }
         }
 
         .content-card {
@@ -257,8 +259,14 @@
     <!-- Snowflakes Layer -->
     <div id="snow-container" class="fixed inset-0 overflow-hidden pointer-events-none z-10"></div>
 
-    <!-- Music Toggle Button -->
-    <div class="fixed top-5 right-5 z-50">
+    <!-- Top Controls: Language Switcher & Music Button -->
+    <div class="fixed top-5 right-5 z-50 flex items-center gap-3">
+        <!-- Language Switcher Button -->
+        <button id="langToggle" class="px-4 py-2 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 font-cinzel font-bold text-xs shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow cursor-pointer">
+            RU
+        </button>
+
+        <!-- Music Button -->
         <button id="musicToggle" class="w-12 h-12 rounded-full bg-brandblue-950/90 border-2 border-gold-400 text-gold-300 flex items-center justify-center shadow-xl hover:scale-105 hover:border-gold-100 transition-all backdrop-blur-md gold-glow cursor-pointer">
             <i class="fas fa-music text-lg" id="musicIcon"></i>
         </button>
@@ -310,17 +318,9 @@
         <div class="tieback tieback-left"></div>
         <div class="tieback tieback-right"></div>
 
-        <div id="sealBtn" class="tap-seal flex flex-col items-center group">
-            <div class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-gold-100 via-gold-400 to-gold-700 flex items-center justify-center shadow-2xl gold-glow group-hover:scale-110 transition-transform border-4 border-white relative">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-dashed border-brandblue-950/60 flex flex-col items-center justify-center bg-brandblue-950 text-center p-1">
-                    <span class="font-bold text-xs text-gold-300 tracking-tighter">SF</span>
-                    <i class="fas fa-snowflake text-gold-400 text-lg my-1 animate-spin" style="animation-duration: 12s;"></i>
-                    <span class="text-[10px] text-gray-200 tracking-widest uppercase font-bold">TOXUNUN</span>
-                </div>
-            </div>
-            <span class="mt-4 text-gold-300 text-xs font-semibold tracking-widest flex items-center gap-2 animate-pulse bg-brandblue-950/95 px-5 py-2 rounded-full border border-gold-500/60 uppercase shadow-2xl">
-                <i class="fas fa-hand-pointer"></i> Pərdə üçün toxunun
-            </span>
+        <!-- Yalnız İşıqlı Mərkəzi Nöqtə (Heç bir yazı yoxdur) -->
+        <div id="sealBtn" class="tap-seal flex items-center justify-center">
+            <div class="glowing-center"></div>
         </div>
 
     </div>
@@ -329,18 +329,18 @@
     <div id="mainContent" class="content-card w-full flex flex-col items-center pb-16 z-20">
 
         <header class="text-center my-12 px-4 max-w-3xl flex flex-col items-center">
-            <div class="bg-white/95 px-6 py-3 rounded-xl shadow-2xl mb-6 border border-gold-400/50 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-[#E5B842] flex items-center justify-center font-bold text-white text-lg tracking-tighter shadow">SF</div>
-                <span class="font-sans font-bold text-xl md:text-2xl text-[#1b365d] tracking-tight">Azerbaijan</span>
+            <!-- GitHub SFAZ_logo.png loqosu -->
+            <div class="bg-white/95 px-6 py-3 rounded-xl shadow-2xl mb-6 border border-gold-400/50 flex items-center justify-center">
+                <img src="SFAZ_logo.png" alt="SF Azerbaijan Logo" class="h-12 md:h-14 object-contain">
             </div>
 
             <div class="mb-4 inline-block bg-gold-500/10 border border-gold-500/30 px-4 py-1.5 rounded-full text-gold-300 text-xs font-cinzel tracking-widest">
-                <i class="fas fa-star mr-1.5 text-gold-400"></i> XÜSUSİ DƏVƏTNAMƏ
+                <i class="fas fa-star mr-1.5 text-gold-400"></i> <span data-i18n="badge">XÜSUSİ DƏVƏTNAMƏ</span>
             </div>
 
-            <span class="text-gold-300 font-cinzel tracking-[0.4em] text-xs md:text-sm uppercase font-semibold">KORPORATİV YENİ İL QALA GECƏSİ</span>
-            <h1 class="font-script text-6xl md:text-8xl gold-text my-3 drop-shadow-lg">Köhnə İllə Vida &amp; 2027-yə Salam</h1>
-            <p class="text-gray-200 text-base md:text-lg max-w-xl mx-auto leading-relaxed font-light italic mt-4">
+            <span class="text-gold-300 font-cinzel tracking-[0.4em] text-xs md:text-sm uppercase font-semibold" data-i18n="subtitle">KORPORATİV YENİ İL QALA GECƏSİ</span>
+            <h1 class="font-script text-6xl md:text-8xl gold-text my-3 drop-shadow-lg" data-i18n="title">Köhnə İllə Vida &amp; 2027-yə Salam</h1>
+            <p class="text-gray-200 text-base md:text-lg max-w-xl mx-auto leading-relaxed font-light italic mt-4" data-i18n="description">
                 "Şirkətimizin inkişafında birgə addımladığımız bu ili möhtəşəm bayram əhval-ruhiyyəsi ilə başa vurur və yeni hədəflərə birlikdə yollanırıq."
             </p>
         </header>
@@ -348,23 +348,23 @@
         <!-- Countdown Section -->
         <section class="w-full max-w-xl px-4 mb-12">
             <div class="glass-card p-6 rounded-2xl shadow-xl text-center border border-gold-500/40">
-                <h3 class="text-xs text-gold-300 font-cinzel tracking-[0.25em] uppercase mb-4 font-bold">TƏDBİRƏ QALAN VAXT</h3>
+                <h3 class="text-xs text-gold-300 font-cinzel tracking-[0.25em] uppercase mb-4 font-bold" data-i18n="countdown_title">TƏDBİRƏ QALAN VAXT</h3>
                 <div class="grid grid-cols-4 gap-3" id="countdown">
                     <div class="flex flex-col bg-brandblue-950/90 p-3 rounded-xl border border-gold-500/30">
                         <span id="days" class="text-2xl md:text-3xl font-bold gold-text">00</span>
-                        <span class="text-[10px] text-gray-300 uppercase tracking-wider mt-1">Gün</span>
+                        <span class="text-[10px] text-gray-300 uppercase tracking-wider mt-1" data-i18n="days">Gün</span>
                     </div>
                     <div class="flex flex-col bg-brandblue-950/90 p-3 rounded-xl border border-gold-500/30">
                         <span id="hours" class="text-2xl md:text-3xl font-bold gold-text">00</span>
-                        <span class="text-[10px] text-gray-300 uppercase tracking-wider mt-1">Saat</span>
+                        <span class="text-[10px] text-gray-300 uppercase tracking-wider mt-1" data-i18n="hours">Saat</span>
                     </div>
                     <div class="flex flex-col bg-brandblue-950/90 p-3 rounded-xl border border-gold-500/30">
                         <span id="minutes" class="text-2xl md:text-3xl font-bold gold-text">00</span>
-                        <span class="text-[10px] text-gray-300 uppercase tracking-wider mt-1">Dəqiqə</span>
+                        <span class="text-[10px] text-gray-300 uppercase tracking-wider mt-1" data-i18n="minutes">Dəqiqə</span>
                     </div>
                     <div class="flex flex-col bg-brandblue-950/90 p-3 rounded-xl border border-gold-500/30">
                         <span id="seconds" class="text-2xl md:text-3xl font-bold gold-text">00</span>
-                        <span class="text-[10px] text-gray-300 uppercase tracking-wider mt-1">Saniyə</span>
+                        <span class="text-[10px] text-gray-300 uppercase tracking-wider mt-1" data-i18n="seconds">Saniyə</span>
                     </div>
                 </div>
             </div>
@@ -377,10 +377,10 @@
                     <i class="far fa-calendar-alt"></i>
                 </div>
                 <div>
-                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold">TARİX &amp; VAXT</span>
-                    <h3 class="text-white font-bold text-lg mt-1">25 Dekabr, 2026</h3>
-                    <p class="text-gold-100/70 text-sm mt-0.5">Qonaqların qarşılanması: 18:30</p>
-                    <p class="text-gray-300 text-xs mt-2 leading-relaxed">Bayram tədbirinin qüsursuz başlaması üçün vaxtında təşrif buyurmağınız xahiş olunur.</p>
+                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold" data-i18n="date_label">TARİX &amp; VAXT</span>
+                    <h3 class="text-white font-bold text-lg mt-1" data-i18n="date_val">25 Dekabr, 2026</h3>
+                    <p class="text-gold-100/70 text-sm mt-0.5" data-i18n="date_sub">Qonaqların qarşılanması: 18:30</p>
+                    <p class="text-gray-300 text-xs mt-2 leading-relaxed" data-i18n="date_desc">Bayram tədbirinin qüsursuz başlaması üçün vaxtında təşrif buyurmağınız xahiş olunur.</p>
                 </div>
             </div>
 
@@ -389,11 +389,11 @@
                     <i class="fas fa-map-marker-alt"></i>
                 </div>
                 <div>
-                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold">MƏKAN &amp; ÜNVAN</span>
+                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold" data-i18n="loc_label">MƏKAN &amp; ÜNVAN</span>
                     <h3 class="text-white font-bold text-lg mt-1 font-sans">Baku Marriott Hotel Boulevard</h3>
-                    <p class="text-gold-100/70 text-sm mt-0.5">Xaqani Rustamov küçəsi 25, Bakı</p>
+                    <p class="text-gold-100/70 text-sm mt-0.5" data-i18n="loc_sub">Xaqani Rustamov küçəsi 25, Bakı</p>
                     <a href="https://www.google.com/maps/search/?api=1&query=Baku+Marriott+Hotel+Boulevard" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-gold-400 hover:text-gold-300 text-xs font-semibold mt-3 underline transition-colors">
-                        <i class="fas fa-location-arrow"></i> Xəritədə tam baxış üçün klikləyin
+                        <i class="fas fa-location-arrow"></i> <span data-i18n="loc_map">Xəritədə tam baxış üçün klikləyin</span>
                     </a>
                 </div>
             </div>
@@ -403,8 +403,8 @@
         <section class="w-full max-w-4xl px-4 mb-12">
             <div class="glass-card p-8 rounded-2xl shadow-xl border border-gold-500/30">
                 <div class="text-center mb-8">
-                    <span class="text-gold-300 font-cinzel tracking-[0.25em] text-xs uppercase font-bold">GECƏNİN PROQRAMI</span>
-                    <h3 class="font-script text-4xl gold-text mt-1">Bayram Gündəliyi</h3>
+                    <span class="text-gold-300 font-cinzel tracking-[0.25em] text-xs uppercase font-bold" data-i18n="prog_label">GECƏNİN PROQRAMI</span>
+                    <h3 class="font-script text-4xl gold-text mt-1" data-i18n="prog_title">Bayram Gündəliyi</h3>
                 </div>
 
                 <div class="space-y-6 relative before:absolute before:inset-0 before:left-7 before:w-0.5 before:bg-gold-500/30">
@@ -413,8 +413,8 @@
                             18:30
                         </div>
                         <div class="glass-card p-4 rounded-xl flex-1 border border-gold-500/20">
-                            <h4 class="text-white font-semibold text-base">Qırmızı Xalça &amp; Welcome Drink</h4>
-                            <p class="text-gray-300 text-xs mt-1">Fotozona, professional çəkiliş və zərif musiqi müşayiəti ilə qarşılama.</p>
+                            <h4 class="text-white font-semibold text-base" data-i18n="p1_title">Qırmızı Xalça &amp; Welcome Drink</h4>
+                            <p class="text-gray-300 text-xs mt-1" data-i18n="p1_desc">Fotozona, professional çəkiliş və zərif musiqi müşayiəti ilə qarşılama.</p>
                         </div>
                     </div>
 
@@ -423,8 +423,8 @@
                             19:30
                         </div>
                         <div class="glass-card p-4 rounded-xl flex-1 border border-gold-500/20">
-                            <h4 class="text-white font-semibold text-base">Rəhbərliyin Təbrik Nitqi &amp; Qala Ziyafəti</h4>
-                            <p class="text-gray-300 text-xs mt-1">İlin yekunları, uğur hekayələri və bayram ziyafəti.</p>
+                            <h4 class="text-white font-semibold text-base" data-i18n="p2_title">Rəhbərliyin Təbrik Nitqi &amp; Qala Ziyafəti</h4>
+                            <p class="text-gray-300 text-xs mt-1" data-i18n="p2_desc">İlin yekunları, uğur hekayələri və bayram ziyafəti.</p>
                         </div>
                     </div>
 
@@ -433,8 +433,8 @@
                             21:30
                         </div>
                         <div class="glass-card p-4 rounded-xl flex-1 border border-gold-500/20">
-                            <h4 class="text-white font-semibold text-base">Show Program &amp; Əyləncə</h4>
-                            <p class="text-gray-300 text-xs mt-1">Canlı musiqi, hədiyyəli viktorinalar və diskoteka.</p>
+                            <h4 class="text-white font-semibold text-base" data-i18n="p3_title">Show Program &amp; Əyləncə</h4>
+                            <p class="text-gray-300 text-xs mt-1" data-i18n="p3_desc">Canlı musiqi, hədiyyəli viktorinalar və diskoteka.</p>
                         </div>
                     </div>
                 </div>
@@ -445,9 +445,9 @@
         <section class="w-full max-w-4xl px-4 grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             <div class="glass-card p-6 rounded-2xl shadow-xl border border-gold-500/30 text-center flex flex-col justify-between">
                 <div>
-                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold">GEYİM KODU</span>
+                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold" data-i18n="dress_label">GEYİM KODU</span>
                     <h3 class="text-white font-bold text-lg mt-1">Black Tie / Evening Elegant</h3>
-                    <p class="text-gray-300 text-xs mt-3 leading-relaxed">
+                    <p class="text-gray-300 text-xs mt-3 leading-relaxed" data-i18n="dress_desc">
                         Şirkətin brand rənglərinə (tünd göy və ya qızılı elementlərə) uyğun zərif geyim tərzinə üstünlük verməyiniz xahiş olunur.
                     </p>
                 </div>
@@ -458,17 +458,17 @@
 
             <div class="glass-card p-6 rounded-2xl shadow-xl border border-gold-500/30 text-center flex flex-col justify-between">
                 <div>
-                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold">İŞTİRAK TƏSDİQİ</span>
-                    <h3 class="text-white font-bold text-lg mt-1">Qeydiyyat</h3>
-                    <p class="text-gray-300 text-xs mt-2">Yerlərin planlaşdırılması üçün zəhmət olmasa iştirakınızı təsdiqləyin.</p>
+                    <span class="text-xs text-gold-300 uppercase font-cinzel tracking-widest font-bold" data-i18n="rsvp_label">İŞTİRAK TƏSDİQİ</span>
+                    <h3 class="text-white font-bold text-lg mt-1" data-i18n="rsvp_title">Qeydiyyat</h3>
+                    <p class="text-gray-300 text-xs mt-2" data-i18n="rsvp_desc">Yerlərin planlaşdırılması üçün zəhmət olmasa iştirakınızı təsdiqləyin.</p>
                 </div>
                 <div class="mt-6">
                     <button id="rsvpBtn" class="w-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 text-brandblue-950 font-bold py-3.5 px-6 rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm cursor-pointer">
                         <i class="fas fa-check-circle"></i>
-                        <span>Gəlişimi Təsdiqləyirəm</span>
+                        <span data-i18n="rsvp_btn">Gəlişimi Təsdiqləyirəm</span>
                     </button>
                     <div id="rsvpStatus" class="hidden mt-3 p-2.5 bg-green-900/70 border border-green-500/50 rounded-xl text-green-300 text-xs">
-                        <i class="fas fa-heart text-red-400 mr-1"></i> Təşəkkürlər! Qeydiyyatınız qəbul olundu.
+                        <i class="fas fa-heart text-red-400 mr-1"></i> <span data-i18n="rsvp_success">Təşəkkürlər! Qeydiyyatınız qəbul olundu.</span>
                     </div>
                 </div>
             </div>
@@ -477,13 +477,69 @@
         <!-- Footer -->
         <footer class="text-center text-xs text-gold-300/60 pt-6 border-t border-gold-500/20 w-full max-w-xl px-4">
             <p class="font-cinzel tracking-wider">SF AZERBAIJAN • NEW YEAR 2027</p>
-            <p class="mt-1 text-gray-400">Bütün hüquqlar qorunur.</p>
+            <p class="mt-1 text-gray-400" data-i18n="footer">Bütün hüquqlar qorunur.</p>
         </footer>
 
     </div>
 
     <!-- SCRIPTS -->
     <script>
+        // Dictionary for AZ / RU
+        const translations = {
+            az: {
+                badge: "XÜSUSİ DƏVƏTNAMƏ",
+                subtitle: "KORPORATİV YENİ İL QALA GECƏSİ",
+                title: "Köhnə İllə Vida & 2027-yə Salam",
+                description: "\"Şirkətimizin inkişafında birgə addımladığımız bu ili möhtəşəm bayram əhval-ruhiyyəsi ilə başa vurur və yeni hədəflərə birlikdə yollanırıq.\"",
+                countdown_title: "TƏDBİRƏ QALAN VAXT",
+                days: "Gün", hours: "Saat", minutes: "Dəqiqə", seconds: "Saniyə",
+                date_label: "TARİX & VAXT", date_val: "25 Dekabr, 2026", date_sub: "Qonaqların qarşılanması: 18:30", date_desc: "Bayram tədbirinin qüsursuz başlaması üçün vaxtında təşrif buyurmağınız xahiş olunur.",
+                loc_label: "MƏKAN & ÜNVAN", loc_sub: "Xaqani Rustamov küçəsi 25, Bakı", loc_map: "Xəritədə tam baxış üçün klikləyin",
+                prog_label: "GECƏNİN PROQRAMI", prog_title: "Bayram Gündəliyi",
+                p1_title: "Qırmızı Xalça & Welcome Drink", p1_desc: "Fotozona, professional çəkiliş və zərif musiqi müşayiəti ilə qarşılama.",
+                p2_title: "Rəhbərliyin Təbrik Nitqi & Qala Ziyafəti", p2_desc: "İlin yekunları, uğur hekayələri və bayram ziyafəti.",
+                p3_title: "Show Program & Əyləncə", p3_desc: "Canlı musiqi, hədiyyəli viktorinalar və diskoteka.",
+                dress_label: "GEYİM KODU", dress_desc: "Şirkətin brand rənglərinə (tünd göy və ya qızılı elementlərə) uyğun zərif geyim tərzinə üstünlük verməyiniz xahiş olunur.",
+                rsvp_label: "İŞTİRAK TƏSDİqİ", rsvp_title: "Qeydiyyat", rsvp_desc: "Yerlərin planlaşdırılması üçün zəhmət olmasa iştirakınızı təsdiqləyin.",
+                rsvp_btn: "Gəlişimi Təsdiqləyirəm", rsvp_success: "Təşəkkürlər! Qeydiyyatınız qəbul olundu.",
+                footer: "Bütün hüquqlar qorunur."
+            },
+            ru: {
+                badge: "СПЕЦИАЛЬНОЕ ПРИГЛАШЕНИЕ",
+                subtitle: "КОРПОРАТИВНЫЙ НОВОГОДНИЙ ГАЛА-ВЕЧЕР",
+                title: "Прощание со старым годом & Привет 2027",
+                description: "\"Мы провожаем этот год, пройденный бок о бок в развитии нашей компании, с великолепным праздничным настроением и вместе устремляемся к новым целям.\"",
+                countdown_title: "ДО НАЧАЛА МЕРОПРИЯТИЯ",
+                days: "Дней", hours: "Часов", minutes: "Минут", seconds: "Секунд",
+                date_label: "ДАТА & ВРЕМЯ", date_val: "25 Декабря, 2026", date_sub: "Сбор гостей: 18:30", date_desc: "Для безупречного начала мероприятия просим вас прибыть вовремя.",
+                loc_label: "МЕСТО & АДРЕС", loc_sub: "улица Хагани Рустамова 25, Баку", loc_map: "Нажмите для просмотра на карте",
+                prog_label: "ПРОГРАММА ВЕЧЕРА", prog_title: "Праздничное расписание",
+                p1_title: "Красная дорожка & Welcome Drink", p1_desc: "Фотозона, профессиональная съемка и встреча гостей под изысканную музыку.",
+                p2_title: "Поздравление руководства & Гала-ужин", p2_desc: "Итоги года, истории успеха и праздничный банкет.",
+                p3_title: "Шоу-программа & Развлечения", p3_desc: "Живая музыка, викторины с призами и дискотека.",
+                dress_label: "ДРЕСС-КОД", dress_desc: "Рекомендуется элегантный стиль в корпоративных цветах компании (темно-синий или золотые элементы).",
+                rsvp_label: "ПОДТВЕРЖДЕНИЕ УЧАСТИЯ", rsvp_title: "Регистрация", rsvp_desc: "Пожалуйста, подтвердите свое присутствие для планирования мест.",
+                rsvp_btn: "Подтверждаю участие", rsvp_success: "Спасибо! Ваша регистрация принята.",
+                footer: "Все права защищены."
+            }
+        };
+
+        let currentLang = 'az';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+            const langBtn = document.getElementById('langToggle');
+            if (langBtn) {
+                langBtn.innerText = lang === 'az' ? 'RU' : 'AZ';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // Snowflakes generator
             const snowContainer = document.getElementById('snow-container');
@@ -507,8 +563,17 @@
             const musicToggle = document.getElementById('musicToggle');
             const musicIcon = document.getElementById('musicIcon');
             const bgMusic = document.getElementById('bgMusic');
+            const langToggle = document.getElementById('langToggle');
             let isPlaying = false;
             let curtainOpened = false;
+
+            if (langToggle) {
+                langToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const newLang = currentLang === 'az' ? 'ru' : 'az';
+                    switchLanguage(newLang);
+                });
+            }
 
             function openCurtain() {
                 if (curtainOpened) return;
@@ -523,7 +588,6 @@
                     toggleMusic();
                 }
 
-                // Dərhal konfeti səpələnsin
                 setTimeout(() => {
                     if (typeof confetti === 'function') {
                         confetti({
@@ -535,7 +599,6 @@
                     }
                 }, 300);
 
-                // HİSS OLUNMAZ DƏRHAL LƏĞV (GÖZLƏMƏ YOXDUR)
                 setTimeout(() => {
                     curtainOverlay.classList.add('curtain-fade');
                 }, 1000);
@@ -568,7 +631,9 @@
                     if (rsvpStatus) rsvpStatus.classList.remove('hidden');
                     rsvpBtn.classList.add('opacity-80', 'pointer-events-none');
                     const spanEl = rsvpBtn.querySelector('span');
-                    if (spanEl) spanEl.innerText = "İştirakınız Təsdiq Olundu";
+                    if (spanEl) {
+                        spanEl.innerText = currentLang === 'az' ? "İştirakınız Təsdiq Olundu" : "Участие подтверждено";
+                    }
                 });
             }
 
@@ -626,7 +691,7 @@
                     if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
                 } else {
                     if (countdownContainer) {
-                        countdownContainer.innerHTML = "<p class='text-gold-300 font-bold col-span-4'>Bayram başladı!</p>";
+                        countdownContainer.innerHTML = `<p class='text-gold-300 font-bold col-span-4'>${currentLang === 'az' ? 'Bayram başladı!' : 'Праздник начался!'}</p>`;
                     }
                 }
             }
