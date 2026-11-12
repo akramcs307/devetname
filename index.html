@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SF Azerbaijan - Yeni İl Korporativ Qala Gecəsi</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
@@ -14,8 +18,19 @@
             theme: {
                 extend: {
                     colors: {
-                        gold: { 100: '#FFF5D1', 300: '#F7D070', 400: '#E5B842', 500: '#D4AF37', 600: '#AA8C2C', 700: '#7E661B' },
-                        brandblue: { 800: '#1b365d', 900: '#0f223f', 950: '#081324' }
+                        gold: {
+                            100: '#FFF5D1',
+                            300: '#F7D070',
+                            400: '#E5B842',
+                            500: '#D4AF37',
+                            600: '#AA8C2C',
+                            700: '#7E661B'
+                        },
+                        brandblue: {
+                            800: '#1b365d',
+                            900: '#0f223f',
+                            950: '#081324'
+                        }
                     },
                     fontFamily: {
                         serif: ['Playfair Display', 'serif'],
@@ -38,7 +53,10 @@
             scroll-behavior: smooth;
         }
 
-        html.curtain-lock, body.curtain-lock { overflow: hidden !important; height: 100% !important; }
+        html.curtain-lock, body.curtain-lock {
+            overflow: hidden !important;
+            height: 100% !important;
+        }
 
         .gold-text {
             background: linear-gradient(135deg, #FFF5D1 0%, #F7D070 40%, #D4AF37 70%, #AA8C2C 100%);
@@ -46,29 +64,47 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .snowflake {
-            position: absolute; background: #ffffff; border-radius: 50%;
-            pointer-events: none; opacity: 0.8; animation: fallAndSway linear infinite;
+        .gold-glow {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
         }
+
+        /* Qar dənəcikləri */
+        .snowflake {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: fallAndSway linear infinite;
+        }
+
         @keyframes fallAndSway {
             0% { transform: translateY(-10px) translateX(0) rotate(0deg); opacity: 0; }
             50% { transform: translateY(50vh) translateX(20px) rotate(180deg); opacity: 0.9; }
             100% { transform: translateY(105vh) translateX(-20px) rotate(360deg); opacity: 0.2; }
         }
 
-        .logo-box { position: relative; overflow: hidden; }
+        /* Loqo üzərindən keçən işıq parıltısı */
+        .logo-box {
+            position: relative;
+            overflow: hidden;
+        }
         .logo-box::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
             background: linear-gradient(60deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
             transform: rotate(30deg) translateX(-100%);
             animation: shimmerEffect 3.5s infinite ease-in-out;
         }
+
         @keyframes shimmerEffect {
             0% { transform: rotate(30deg) translateX(-100%); }
             25% { transform: rotate(30deg) translateX(100%); }
             100% { transform: rotate(30deg) translateX(100%); }
         }
 
+        /* Kartların nəfəs alan kənarları və hover effekti */
         .glass-card {
             background: rgba(15, 34, 63, 0.85);
             backdrop-filter: blur(16px);
@@ -76,9 +112,16 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             animation: cardBreath 4s infinite alternate ease-in-out;
         }
+
         @keyframes cardBreath {
             0% { border-color: rgba(212, 175, 55, 0.3); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
             100% { border-color: rgba(247, 208, 112, 0.7); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15); }
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(247, 208, 112, 1);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.3);
         }
 
         /* ================= TEATR PƏRDƏSİ ================= */
@@ -99,7 +142,7 @@
             transition: opacity 1.6s ease 0.2s, transform 2.4s cubic-bezier(0.4, 0, 0.2, 1);
             animation: glowFlicker 3s infinite ease-in-out;
         }
-        @keyframes glowFlicker { 0%,100% { opacity: 0.5; } 50% { opacity: 0.75; } }
+        @keyframes glowFlicker { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.75; } }
         .curtain-open .stage-glow { animation: none; opacity: 1; transform: scaleX(3.2); }
 
         .velvet {
@@ -128,6 +171,8 @@
             position: absolute; top: 0; bottom: 0; width: 34px; pointer-events: none; z-index: 2;
             animation: edgePulse 2.4s infinite ease-in-out;
         }
+        @keyframes edgePulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+
         .curtain-left .edge {
             right: 0;
             background: linear-gradient(270deg, rgba(255,246,210,1) 0px, rgba(255,222,130,0.8) 2px, rgba(247,208,112,0.4) 9px, rgba(212,175,55,0.15) 20px, transparent 34px);
@@ -160,16 +205,46 @@
             100% { transform: scaleX(0.17) translateX(22%); clip-path: polygon(100% 0, 100% 100%, 31% 100%, 32.5% 92%, 34% 84%, 35.5% 76%, 37% 68%, 34% 62%, 29% 56%, 21% 48%, 14% 40%, 8% 32%, 4% 24%, 1.5% 16%, 0% 8%, 0 0); }
         }
 
+        .tieback {
+            position: absolute; top: calc(68% - 8px); width: 18.5%; height: 16px;
+            z-index: 25; opacity: 0; border-radius: 8px;
+            background: linear-gradient(180deg, #FFF5D1 0%, #D4AF37 35%, #7E661B 100%);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.6);
+            transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+            pointer-events: none;
+        }
+        .tieback-left { left: 0; transform: translateX(-20px); }
+        .tieback-right { right: 0; transform: translateX(20px); }
+        .curtain-open .tieback { opacity: 1; transform: translateX(0); }
+        .tieback::after {
+            content: ""; position: absolute; top: 10px; width: 12px; height: 48px;
+            border-radius: 3px 3px 9px 9px;
+            background: linear-gradient(180deg, #D4AF37, #AA8C2C 70%, #7E661B);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+        }
+        .tieback-left::after { right: 8px; }
+        .tieback-right::after { left: 8px; }
+
         .curtain-valance {
             position: absolute; top: 0; left: 0; right: 0; z-index: 30; pointer-events: none;
             filter: drop-shadow(0 12px 14px rgba(0,0,0,0.65)); transform-origin: top center;
+        }
+        .curtain-open .curtain-valance { animation: valanceSway 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+        @keyframes valanceSway {
+            0% { transform: scaleY(1); }
+            30% { transform: scaleY(1.12); }
+            60% { transform: scaleY(0.95); }
+            80% { transform: scaleY(1.03); }
+            100% { transform: scaleY(1); }
         }
         .curtain-valance svg { display: block; width: 100%; height: clamp(130px, 26vh, 250px); }
         .curtain-valance .fl { fill: none; stroke: rgba(0,0,0,0.45); stroke-width: 3; vector-effect: non-scaling-stroke; }
         .curtain-valance .fh { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 2; vector-effect: non-scaling-stroke; }
         .curtain-valance .gt { fill: none; stroke: #D4AF37; stroke-width: 4; vector-effect: non-scaling-stroke; }
 
-        /* SF LOQOSU - DƏQİQ MƏRKƏZLƏŞDİRİLMİŞ */
+        body.curtain-lock .glass-card { backdrop-filter: none; }
+
+        /* SF LOQOSU PƏRDƏ ÜZƏRİNDƏ */
         .curtain-logo {
             position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
             z-index: 38; transition: transform 0.8s ease, opacity 0.8s ease;
@@ -188,7 +263,7 @@
             justify-content: center;
         }
 
-        /* SOL TƏRƏFDƏ "YENİ İLİNİZ MÜBARƏK" YAZISI (BÖYÜDÜLMÜŞ) */
+        /* SOL TƏRƏFDƏ "YENİ İLİNİZ MÜBARƏK" YAZISI */
         .side-greeting {
             position: absolute; left: 6%; top: 48%; transform: translateY(-50%);
             z-index: 35; text-align: center; pointer-events: none;
@@ -205,7 +280,7 @@
             letter-spacing: 1px;
         }
 
-        /* SAĞ TƏRƏF NORMAL KLASSİK YOLKA */
+        /* SAĞ TƏRƏF YOLKA */
         .side-tree-container {
             position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
             z-index: 35; pointer-events: none;
@@ -227,7 +302,7 @@
         }
 
         .classic-tree-icon {
-            font-size: clamp(140px, 20vw, 260px);
+            font-size: clamp(170px, 24vw, 310px);
             background: linear-gradient(135deg, #FFF5D1 0%, #F7D070 40%, #D4AF37 70%, #AA8C2C 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -238,6 +313,28 @@
             0%, 100% { filter: drop-shadow(0 0 15px rgba(247,208,112,0.5)); transform: scale(1); }
             50% { filter: drop-shadow(0 0 35px rgba(255,245,209,0.95)); transform: scale(1.02); }
         }
+
+        .tree-wrap { position: relative; display: inline-block; line-height: 1; }
+        .tree-wrap .classic-tree-icon { display: block; }
+        .tree-light {
+            position: absolute; width: 0.045em; height: 0.045em; min-width: 4px; min-height: 4px;
+            border-radius: 50%; background: #ffffff;
+            box-shadow: 0 0 6px 1px rgba(255,245,209,0.95), 0 0 12px 2px rgba(247,208,112,0.7);
+            animation: lightTwinkle 1.6s infinite ease-in-out;
+            transform: translate(-50%, -50%);
+        }
+        .tree-light.navy {
+            background: radial-gradient(circle at 35% 35%, #1b365d, #081324);
+            border: 1px solid #F7D070; box-shadow: 0 0 5px rgba(247,208,112,0.8);
+            width: 0.055em; height: 0.055em; min-width: 5px; min-height: 5px;
+            animation: none;
+        }
+        @keyframes lightTwinkle {
+            0%, 100% { opacity: 0.25; transform: translate(-50%, -50%) scale(0.7); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+        }
+        .tree-light:nth-child(3n)   { animation-delay: 0.5s; }
+        .tree-light:nth-child(3n+1) { animation-delay: 1.0s; }
 
         /* OYUNCAQLAR (ASILAN) */
         .hanging-ornaments {
@@ -283,7 +380,7 @@
         .curtain-open .tap-seal { transform: translate(-50%, -50%) scale(0); opacity: 0; pointer-events: none; }
 
         .ornament { position: relative; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0; animation: ornSwing 3.2s infinite ease-in-out; }
-        @keyframes ornSwing { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+        @keyframes ornSwing { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
 
         .orn-cap {
             width: 26px; height: 16px; border-radius: 4px 4px 2px 2px; z-index: 2;
@@ -311,7 +408,7 @@
         .orn-ball b { font-size: 22px; letter-spacing: 1px; font-weight: 800; line-height: 1; }
         
         @keyframes ballGlow {
-            0%,100% { box-shadow: 0 0 25px rgba(255,245,209,0.8), 0 0 55px rgba(212,175,55,0.6), inset -8px -10px 18px rgba(126,102,27,0.55); }
+            0%, 100% { box-shadow: 0 0 25px rgba(255,245,209,0.8), 0 0 55px rgba(212,175,55,0.6), inset -8px -10px 18px rgba(126,102,27,0.55); }
             50% { box-shadow: 0 0 40px rgba(255,245,209,1), 0 0 95px rgba(212,175,55,0.95), inset -8px -10px 18px rgba(126,102,27,0.55); }
         }
 
@@ -320,7 +417,7 @@
         .spark.s2 { top: 55px; right: -25px; font-size: 16px; animation-delay: 0.6s; }
         .spark.s3 { bottom: 4px; left: -12px; font-size: 10px; animation-delay: 1.1s; }
         .spark.s4 { bottom: 18px; right: -15px; font-size: 11px; animation-delay: 0.3s; }
-        @keyframes sparkle { 0%,100% { opacity: 0; transform: scale(0.4) rotate(0deg); } 50% { opacity: 1; transform: scale(1.2) rotate(90deg); } }
+        @keyframes sparkle { 0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); } 50% { opacity: 1; transform: scale(1.2) rotate(90deg); } }
 
         .content-card { transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease; transform: scale(0.9); opacity: 0; }
         .content-active .content-card { transform: scale(1); opacity: 1; }
@@ -332,16 +429,27 @@
             box-shadow: 0 0 12px rgba(212,175,55,0.6);
         }
 
-        /* MOBİL (TELEFON) UYGUNLUĞU */
+        /* Klikləmə dalğası (Ripple effect) */
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,245,209,0.8) 0%, rgba(212,175,55,0) 70%);
+            transform: scale(0);
+            animation: rippleAnim 0.6s linear;
+            pointer-events: none;
+            z-index: 999;
+        }
+        @keyframes rippleAnim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* MOBİL (TELEFON) UYĞUNLUĞU */
         @media (max-width: 768px) {
-            .side-greeting {
-                top: 26%; left: 50%; transform: translateX(-50%); width: 100%;
-            }
-            .side-greeting h2 { font-size: 44px; }
-            .side-tree-container {
-                top: 76%; right: 50%; transform: translateX(50%);
-            }
-            .classic-tree-icon { font-size: 140px; }
+            .side-greeting { left: 4%; }
+            .side-greeting h2 { font-size: clamp(24px, 7.2vw, 40px); line-height: 1.2; letter-spacing: 0; }
+            .side-tree-container { right: 4%; }
+            .classic-tree-icon { font-size: clamp(100px, 32vw, 150px); }
+            .tree-star { font-size: clamp(20px, 6vw, 30px); margin-bottom: -12px; }
             .tap-seal { top: 50%; }
             .orn-ball { width: 95px; height: 95px; }
             .orn-ball b { font-size: 18px; }
@@ -417,7 +525,7 @@
 
         <!-- YUXARI MƏRKƏZLƏŞDİRİLMİŞ SF LOQOSU -->
         <div class="curtain-logo">
-            <div class="curtain-logo-box">
+            <div class="curtain-logo-box logo-box">
                 <img src="SFAZ_logo.png" alt="SF Azerbaijan Logo" class="h-10 md:h-12 object-contain">
             </div>
         </div>
@@ -462,7 +570,23 @@
         <!-- SAĞ TƏRƏF KLASSİK NƏFİS YOLKA -->
         <div class="side-tree-container">
             <i class="fas fa-star tree-star"></i>
-            <i class="fas fa-tree classic-tree-icon"></i>
+            <div class="tree-wrap">
+                <i class="fas fa-tree classic-tree-icon"></i>
+                <span class="tree-light" style="left:50%; top:24%;"></span>
+                <span class="tree-light" style="left:41%; top:38%;"></span>
+                <span class="tree-light navy" style="left:59%; top:40%;"></span>
+                <span class="tree-light navy" style="left:32%; top:52%;"></span>
+                <span class="tree-light" style="left:50%; top:52%;"></span>
+                <span class="tree-light" style="left:68%; top:54%;"></span>
+                <span class="tree-light" style="left:24%; top:68%;"></span>
+                <span class="tree-light navy" style="left:41%; top:68%;"></span>
+                <span class="tree-light" style="left:60%; top:70%;"></span>
+                <span class="tree-light navy" style="left:76%; top:70%;"></span>
+                <span class="tree-light" style="left:16%; top:82%;"></span>
+                <span class="tree-light" style="left:34%; top:84%;"></span>
+                <span class="tree-light navy" style="left:66%; top:84%;"></span>
+                <span class="tree-light" style="left:84%; top:82%;"></span>
+            </div>
         </div>
 
         <div class="curtain-panel curtain-left velvet"><div class="edge"></div></div>
@@ -495,6 +619,10 @@
         <header class="text-center my-10 px-4 max-w-3xl flex flex-col items-center">
             <div class="logo-box bg-white px-6 py-3 rounded-xl shadow-2xl mb-6 border border-gold-400/50 flex items-center justify-center">
                 <img src="SFAZ_logo.png" alt="SF Azerbaijan Logo" class="h-12 md:h-14 object-contain">
+            </div>
+
+            <div class="mb-4 inline-block bg-gold-500/10 border border-gold-500/30 px-4 py-1.5 rounded-full text-gold-300 text-xs font-cinzel tracking-widest">
+                <i class="fas fa-star mr-1.5 text-gold-400"></i> <span data-i18n="badge">XÜSUSİ DƏVƏTNAMƏ</span>
             </div>
 
             <span class="text-gold-300 font-cinzel tracking-[0.3em] text-xs md:text-sm uppercase font-semibold mb-2" data-i18n="subtitle">KORPORATİV YENİ İL QALA GECƏSİ</span>
@@ -635,6 +763,7 @@
     <script>
         const translations = {
             az: {
+                badge: "XÜSUSİ DƏVƏTNAMƏ",
                 subtitle: "KORPORATİV YENİ İL QALA GECƏSİ",
                 title: "Köhnə İl ilə Vida & 2027-yə Salam",
                 description: "\"Şirkətimizin inkişafında birgə addımladığımız bu ili möhtəşəm bayram əhval-ruhiyyəsi ilə başa vurur və yeni hədəflərə birlikdə yollanırıq.\"",
@@ -652,6 +781,7 @@
                 footer: "Bütün hüquqlar qorunur."
             },
             ru: {
+                badge: "СПЕЦИАЛЬНОЕ ПРИГЛАШЕНИЕ",
                 subtitle: "КОРПОРАТИВНЫЙ НОВОГОДНИЙ ГАЛА-ВЕЧЕР",
                 title: "Прощание со старым годом & Привет 2027",
                 description: "\"Мы провожаем этот год, пройденный бок о бок в развитии нашей компании, с великолепным праздничным настроением и вместе устремляемся к новым целям.\"",
@@ -852,6 +982,19 @@
 
             updateCountdown();
             setInterval(updateCountdown, 1000);
+
+            // Səhifə üzərində klikləmə dalğası (Ripple effect)
+            document.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple-effect');
+                const size = 60;
+                ripple.style.width = size + 'px';
+                ripple.style.height = size + 'px';
+                ripple.style.left = (e.pageX - size / 2) + 'px';
+                ripple.style.top = (e.pageY - size / 2) + 'px';
+                document.body.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
         });
     </script>
 </body>
