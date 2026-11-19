@@ -852,4 +852,208 @@
                 ag9: "Праздничный торт",
                 ag10: "Грандиозная финальная вечеринка",
                 prog_footer: "Приготовьтесь к незабываемому вечеру, полному веселья, музыки и сюрпризов! ✨",
-                rsvp_label: "ПОДТВЕРЖДЕНИЕ УЧАСТИЯ", rsvp_title: "Регистрация
+                rsvp_label: "ПОДТВЕРЖДЕНИЕ УЧАСТИЯ", rsvp_title: "Регистрация", rsvp_desc: "Пожалуйста, подтвердите свое присутствие для планирования мест.",
+                rsvp_btn: "Подтверждаю участие", rsvp_success: "Спасибо! Ваша регистрация принята.",
+                footer: "Все права защищены."
+            }
+        };
+
+        let currentLang = 'az';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+
+            const curtainGreeting = document.getElementById('curtainGreeting');
+            if (curtainGreeting) {
+                curtainGreeting.innerHTML = lang === 'az' ? 'Yeni İliniz<br>Mübarək' : 'С Новым<br>Годом';
+            }
+
+            const btnAz = document.getElementById('langAz');
+            const btnRu = document.getElementById('langRu');
+
+            if (lang === 'az') {
+                btnAz.classList.add('lang-btn-active');
+                btnAz.classList.remove('text-gold-300/60');
+                btnRu.classList.remove('lang-btn-active');
+                btnRu.classList.add('text-gold-300/60');
+            } else {
+                btnRu.classList.add('lang-btn-active');
+                btnRu.classList.remove('text-gold-300/60');
+                btnAz.classList.remove('lang-btn-active');
+                btnAz.classList.add('text-gold-300/60');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const snowContainer = document.getElementById('snow-container');
+            for (let i = 0; i < 50; i++) {
+                const flake = document.createElement('div');
+                flake.classList.add('snowflake');
+                const size = Math.random() * 5 + 3 + 'px';
+                flake.style.width = size;
+                flake.style.height = size;
+                flake.style.left = Math.random() * 100 + '%';
+                flake.style.top = -20 + 'px';
+                flake.style.opacity = Math.random() * 0.7 + 0.3;
+                flake.style.animationDuration = Math.random() * 4 + 3 + 's';
+                flake.style.animationDelay = Math.random() * 5 + 's';
+                snowContainer.appendChild(flake);
+            }
+
+            const curtainOverlay = document.getElementById('curtainOverlay');
+            const rsvpBtn = document.getElementById('rsvpBtn');
+            const rsvpStatus = document.getElementById('rsvpStatus');
+            const musicToggle = document.getElementById('musicToggle');
+            const musicIcon = document.getElementById('musicIcon');
+            const bgMusic = document.getElementById('bgMusic');
+            let isPlaying = false;
+            let curtainOpened = false;
+
+            function openCurtain() {
+                if (curtainOpened) return;
+                curtainOpened = true;
+
+                curtainOverlay.classList.add('curtain-open');
+                document.body.classList.add('content-active');
+                document.documentElement.classList.remove('curtain-lock');
+                document.body.classList.remove('curtain-lock');
+
+                if (!isPlaying && bgMusic) {
+                    toggleMusic();
+                }
+
+                setTimeout(() => {
+                    if (typeof confetti === 'function') {
+                        const colors = ['#D4AF37', '#FFF5D1', '#1b365d'];
+                        confetti({ particleCount: 90, angle: 60, spread: 70, origin: { x: 0.05, y: 0.6 }, colors: colors });
+                        confetti({ particleCount: 90, angle: 120, spread: 70, origin: { x: 0.95, y: 0.6 }, colors: colors });
+                    }
+                }, 450);
+
+                setTimeout(() => {
+                    if (typeof confetti === 'function') {
+                        confetti({ particleCount: 160, spread: 110, origin: { y: 0.5 }, colors: ['#D4AF37', '#FFF5D1', '#1b365d'] });
+                    }
+                }, 1100);
+
+                setTimeout(() => {
+                    curtainOverlay.classList.add('curtain-fade');
+                }, 1900);
+
+                setTimeout(() => {
+                    curtainOverlay.style.display = 'none';
+                }, 2900);
+            }
+
+            if (curtainOverlay) {
+                curtainOverlay.addEventListener('click', openCurtain);
+            }
+
+            if (rsvpBtn) {
+                rsvpBtn.addEventListener('click', () => {
+                    const count = 200;
+                    const defaults = { origin: { y: 0.7 } };
+
+                    function fire(particleRatio, opts) {
+                        if (typeof confetti === 'function') {
+                            confetti(Object.assign({}, defaults, opts, {
+                                particleCount: Math.floor(count * particleRatio)
+                            }));
+                        }
+                    }
+
+                    fire(0.25, { spread: 30, startVelocity: 60, colors: ['#D4AF37', '#FFF5D1'] });
+                    fire(0.2, { spread: 60, colors: ['#1b365d', '#AA8C2C'] });
+
+                    if (rsvpStatus) rsvpStatus.classList.remove('hidden');
+                    rsvpBtn.classList.add('opacity-80', 'pointer-events-none');
+                    const spanEl = rsvpBtn.querySelector('span');
+                    if (spanEl) {
+                        spanEl.innerText = currentLang === 'az' ? "İştirakınız Təsdiq Olundu" : "Участие подтверждено";
+                    }
+                });
+            }
+
+            function toggleMusic() {
+                if (!bgMusic) return;
+                if (isPlaying) {
+                    bgMusic.pause();
+                    if (musicIcon) {
+                        musicIcon.classList.remove('fa-volume-high');
+                        musicIcon.classList.add('fa-music');
+                    }
+                    isPlaying = false;
+                } else {
+                    bgMusic.play().then(() => {
+                        if (musicIcon) {
+                            musicIcon.classList.remove('fa-music');
+                            musicIcon.classList.add('fa-volume-high');
+                        }
+                        isPlaying = true;
+                    }).catch(e => {
+                        console.log("Audio blocked by browser.");
+                    });
+                }
+            }
+
+            if (musicToggle) {
+                musicToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleMusic();
+                });
+            }
+
+            const targetDate = new Date('December 26, 2026 19:00:00').getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minutesEl = document.getElementById('minutes');
+                const secondsEl = document.getElementById('seconds');
+                const countdownContainer = document.getElementById('countdown');
+
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
+                    if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
+                    if (minutesEl) minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+                    if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
+                } else {
+                    if (countdownContainer) {
+                        countdownContainer.innerHTML = `<p class='text-gold-300 font-bold col-span-4'>${currentLang === 'az' ? 'Bayram başladı!' : 'Праздник начался!'}</p>`;
+                    }
+                }
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            // Səhifə üzərində klikləmə dalğası (Ripple effect)
+            document.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple-effect');
+                const size = 60;
+                ripple.style.width = size + 'px';
+                ripple.style.height = size + 'px';
+                ripple.style.left = (e.pageX - size / 2) + 'px';
+                ripple.style.top = (e.pageY - size / 2) + 'px';
+                document.body.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body>
+</html>
